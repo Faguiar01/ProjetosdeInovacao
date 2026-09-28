@@ -1,0 +1,2894 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0b3c8c">
+<title>Jornada de Inovação Industrial | Squad de Inovação</title>
+<style>
+/* ============ VARIÁVEIS ============ */
+:root{
+  --azul:#0b3c8c;
+  --azul-esc:#07203f;
+  --azul-clr:#1a5fd0;
+  --laranja:#ff7a18;
+  --laranja-clr:#ffa45c;
+  --cinza:#f4f6fa;
+  --texto:#1b2433;
+  --muted:#5d6b82;
+  --borda:#e0e6f0;
+  --verde:#15a34a;
+  --amarelo:#d97706;
+  --vermelho:#dc2626;
+  --roxo:#7c3aed;
+  --radius:16px;
+  --sombra:0 4px 18px rgba(11,60,140,.08);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+  background:var(--cinza);
+  color:var(--texto);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;
+  background:linear-gradient(135deg,#07203f 0%,#0b3c8c 45%,#1a5fd0 100%);
+  color:#fff;
+  padding:52px 20px 60px;
+  overflow:hidden;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:
+    radial-gradient(circle at 12% 20%, rgba(255,122,24,.30), transparent 42%),
+    radial-gradient(circle at 88% 80%, rgba(26,95,208,.55), transparent 45%),
+    repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 2px, transparent 2px 22px);
+  pointer-events:none;
+}
+.hero-inner{position:relative;z-index:2;max-width:1150px;margin:0 auto;}
+.tag{
+  display:inline-block;
+  background:rgba(255,122,24,.18);
+  border:1px solid rgba(255,164,92,.55);
+  color:#ffd7b5;
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  padding:6px 14px;
+  border-radius:999px;
+  margin-bottom:18px;
+}
+.hero h1{
+  font-size:clamp(1.6rem,3.4vw,2.5rem);
+  line-height:1.18;
+  margin:0 0 14px;
+  font-weight:800;
+  letter-spacing:-.5px;
+}
+.hero p{
+  max-width:820px;
+  margin:0 0 8px;
+  color:#d7e3f7;
+  font-size:1.02rem;
+}
+.hero-steps{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:26px;
+}
+.hero-steps span{
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.20);
+  padding:7px 15px;
+  border-radius:999px;
+  font-size:.82rem;
+  font-weight:600;
+  color:#eaf2ff;
+}
+
+/* ============ ABAS ============ */
+.tabs{
+  position:sticky;
+  top:0;
+  z-index:60;
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+  padding:12px 16px;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--borda);
+  box-shadow:0 2px 14px rgba(11,60,140,.06);
+}
+.tab-btn{
+  font-family:inherit;
+  font-size:.94rem;
+  font-weight:700;
+  color:var(--muted);
+  background:#fff;
+  border:1.5px solid var(--borda);
+  border-radius:999px;
+  padding:11px 24px;
+  cursor:pointer;
+  transition:.22s;
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+.tab-btn:hover{border-color:var(--azul-clr);color:var(--azul);transform:translateY(-1px);}
+.tab-btn:focus-visible{outline:3px solid var(--laranja);outline-offset:3px;}
+.tab-btn .num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:23px;height:23px;border-radius:50%;
+  background:var(--cinza);color:var(--muted);
+  font-size:.76rem;font-weight:800;
+}
+.tab-btn.active{
+  background:linear-gradient(135deg,var(--azul),var(--azul-clr));
+  color:#fff;border-color:transparent;
+  box-shadow:0 6px 18px rgba(11,60,140,.28);
+}
+.tab-btn.active .num{background:rgba(255,255,255,.22);color:#fff;}
+
+/* ============ LAYOUT ============ */
+main{max-width:1150px;margin:0 auto;padding:32px 18px 130px;}
+.panel{display:none;animation:fade .35s ease;}
+.panel.active{display:block;}
+@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+.card{
+  background:#fff;
+  border:1px solid var(--borda);
+  border-radius:var(--radius);
+  padding:26px;
+  margin-bottom:22px;
+  box-shadow:var(--sombra);
+}
+.card-head{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  margin-bottom:20px;
+  padding-bottom:16px;
+  border-bottom:1px dashed var(--borda);
+}
+.card-head .icon{
+  flex:0 0 auto;
+  width:44px;height:44px;
+  border-radius:12px;
+  display:grid;place-items:center;
+  font-size:1.25rem;
+  background:linear-gradient(135deg,#e8f0ff,#d6e4ff);
+  color:var(--azul);
+}
+.card-head h2{
+  margin:0 0 4px;
+  font-size:1.18rem;
+  color:var(--azul-esc);
+  letter-spacing:-.2px;
+}
+.card-head p{margin:0;color:var(--muted);font-size:.9rem;}
+
+h3.sub{
+  font-size:.82rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--muted);
+  margin:0 0 10px;
+  font-weight:800;
+}
+
+/* ============ CAMPOS ============ */
+label.field{display:block;margin-bottom:18px;}
+label.field > span{
+  display:block;
+  font-size:.82rem;
+  font-weight:700;
+  color:var(--azul-esc);
+  margin-bottom:7px;
+  letter-spacing:.02em;
+}
+input[type="text"],input[type="url"],textarea,select{
+  width:100%;
+  font-family:inherit;
+  font-size:.95rem;
+  color:var(--texto);
+  background:#fbfcff;
+  border:1.5px solid var(--borda);
+  border-radius:10px;
+  padding:13px 15px;
+  transition:.18s;
+  resize:vertical;
+}
+textarea{
+  min-height:110px;
+  line-height:1.55;
+}
+input[type="text"],input[type="url"]{
+  min-height:52px;
+}
+input[type="text"]:focus,input[type="url"]:focus,textarea:focus,select:focus{
+  outline:none;
+  border-color:var(--azul-clr);
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(26,95,208,.11);
+}
+::placeholder{color:#9aa8bd;opacity:1;}
+
+/* ============ LINK + BOTÃO ============ */
+.link-input-group{display:flex;gap:8px;align-items:stretch;}
+.link-input-group input{flex:1;min-width:0;}
+.btn-link-open{
+  flex:0 0 auto;
+  padding:0 22px;
+  background:linear-gradient(135deg,var(--azul),var(--azul-clr));
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  font-family:inherit;
+  font-weight:700;
+  font-size:.86rem;
+  cursor:pointer;
+  transition:.2s;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  white-space:nowrap;
+}
+.btn-link-open:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(11,60,140,.28);}
+.btn-link-open:focus-visible{outline:3px solid var(--laranja);outline-offset:2px;}
+
+/* ============ GRIDS ============ */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+
+/* ============ CONCEITOS ============ */
+.conceito{
+  border-radius:14px;
+  padding:20px;
+  border:1.5px solid var(--borda);
+  background:#fbfcff;
+  border-top:4px solid var(--azul-clr);
+  height:100%;
+}
+.conceito.inv{border-top-color:var(--roxo);}
+.conceito.des{border-top-color:var(--laranja);}
+.conceito.inov{border-top-color:var(--verde);}
+.conceito h4{margin:0 0 8px;font-size:1rem;color:var(--azul-esc);}
+.conceito p{margin:0;font-size:.87rem;color:var(--muted);}
+.conceito em{color:var(--azul);font-style:normal;font-weight:700;}
+
+.conceito.clicavel{
+  cursor:pointer;
+  transition:.25s;
+  position:relative;
+  padding-bottom:42px;
+}
+.conceito.clicavel .hint-click{
+  position:absolute;bottom:14px;right:16px;
+  font-size:.72rem;font-weight:800;color:var(--azul-clr);
+  display:flex;align-items:center;gap:4px;opacity:.75;transition:.25s;
+}
+.conceito.clicavel::before{
+  content:"";position:absolute;top:14px;right:16px;
+  width:8px;height:8px;border-radius:50%;background:var(--laranja);
+  box-shadow:0 0 0 0 rgba(255,122,24,.7);animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(255,122,24,.7);}
+  50%{box-shadow:0 0 0 8px rgba(255,122,24,0);}
+}
+.conceito.clicavel:hover{
+  transform:translateY(-4px);
+  box-shadow:0 14px 30px rgba(11,60,140,.14);
+  border-color:var(--azul-clr);
+}
+.conceito.clicavel:hover .hint-click{opacity:1;}
+.conceito.clicavel:focus-visible{outline:3px solid var(--laranja);outline-offset:3px;}
+
+/* ============ SQUAD ============ */
+.role{
+  background:#fbfcff;border:1.5px solid var(--borda);border-radius:14px;
+  padding:16px;transition:.2s;
+}
+.role:hover{border-color:var(--azul-clr);box-shadow:0 6px 16px rgba(11,60,140,.09);}
+.role .emoji{font-size:1.5rem;display:block;margin-bottom:6px;}
+.role strong{display:block;font-size:.95rem;color:var(--azul-esc);}
+.role small{display:block;color:var(--muted);font-size:.79rem;margin:4px 0 10px;line-height:1.4;}
+.role input{font-size:.88rem;padding:11px 13px;min-height:44px;}
+
+/* ============ LISTAS DINÂMICAS ============ */
+.list{display:flex;flex-direction:column;gap:10px;}
+.item{
+  display:flex;gap:8px;align-items:flex-start;
+  animation:fade .25s ease;
+}
+.item textarea{
+  flex:1;min-height:76px;font-size:.92rem;background:#fff;
+}
+.btn-del{
+  flex:0 0 auto;width:38px;height:38px;border-radius:9px;
+  border:1.5px solid #f2d3d3;background:#fff5f5;color:var(--vermelho);
+  font-size:1.2rem;font-weight:700;line-height:1;cursor:pointer;transition:.18s;
+}
+.btn-del:hover{background:var(--vermelho);color:#fff;border-color:var(--vermelho);}
+.btn-add{
+  font-family:inherit;font-size:.86rem;font-weight:700;color:var(--azul);
+  background:#eef4ff;border:1.5px dashed #b9cdf0;border-radius:10px;
+  padding:12px 14px;cursor:pointer;width:100%;transition:.18s;margin-top:6px;
+}
+.btn-add:hover{background:var(--azul);color:#fff;border-color:var(--azul);border-style:solid;}
+
+/* ============ MATRIZ CSD ============ */
+.csd{border-radius:14px;padding:18px;border:1.5px solid var(--borda);background:#fff;}
+.csd.c{border-top:5px solid var(--verde);background:linear-gradient(180deg,#f2fdf6,#fff 30%);}
+.csd.s{border-top:5px solid var(--amarelo);background:linear-gradient(180deg,#fffaf0,#fff 30%);}
+.csd.d{border-top:5px solid var(--vermelho);background:linear-gradient(180deg,#fff5f5,#fff 30%);}
+.csd h4{margin:0 0 4px;font-size:1rem;display:flex;align-items:center;gap:8px;color:var(--azul-esc);}
+.csd .hint{font-size:.78rem;color:var(--muted);margin:0 0 12px;display:block;}
+
+/* ============ MAPA DE EMPATIA ============ */
+.persona-bar{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  background:linear-gradient(135deg,#eef4ff,#f8fbff);
+  border:1.5px solid #d6e4ff;border-radius:14px;
+  padding:16px 20px;margin-bottom:20px;
+}
+.persona-bar .avatar{
+  width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(135deg,var(--azul),var(--azul-clr));
+  color:#fff;display:grid;place-items:center;font-size:1.6rem;flex:0 0 auto;
+}
+.persona-bar .persona-fields{display:flex;gap:14px;flex-wrap:wrap;flex:1;}
+.persona-bar .persona-fields label{flex:1 1 200px;margin:0;}
+
+.empathy{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.quad{
+  border-radius:14px;padding:18px;border:1.5px solid var(--borda);
+  background:#fff;border-left:5px solid var(--azul-clr);
+}
+.quad.q1{border-left-color:#2563eb;}
+.quad.q2{border-left-color:#0891b2;}
+.quad.q3{border-left-color:#7c3aed;}
+.quad.q4{border-left-color:#0d9488;}
+.quad.q5{border-left-color:var(--vermelho);background:linear-gradient(180deg,#fff6f6,#fff 40%);}
+.quad.q6{border-left-color:var(--verde);background:linear-gradient(180deg,#f3fdf7,#fff 40%);}
+.quad h4{margin:0 0 4px;font-size:.98rem;color:var(--azul-esc);display:flex;gap:8px;align-items:center;}
+.quad .hint{font-size:.76rem;color:var(--muted);display:block;margin-bottom:12px;}
+
+/* ============ HMW ============ */
+.item-hmw{
+  display:grid;grid-template-columns:1fr 130px 130px 190px 38px;gap:8px;
+  align-items:start;background:#fbfcff;border:1.5px solid var(--borda);
+  border-radius:12px;padding:10px;
+}
+.item-hmw textarea{min-height:60px;background:#fff;font-size:.9rem;}
+.item-hmw select{font-size:.82rem;padding:9px 8px;min-height:38px;}
+.item-hmw .btn-del{align-self:center;}
+.badge{
+  font-size:.74rem;font-weight:800;padding:7px 10px;border-radius:8px;
+  text-align:center;background:#eef1f6;color:var(--muted);
+  line-height:1.25;min-height:38px;display:flex;align-items:center;justify-content:center;
+}
+.badge.ok{background:#e7f8ee;color:#0f7a37;}
+.badge.mid{background:#fff5e5;color:#a35a00;}
+.badge.low{background:#f2f4f8;color:#64748b;}
+.badge.hot{background:#ffe9e9;color:#b91c1c;}
+
+/* ============ PROPOSTA DE VALOR ============ */
+.vpc{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid var(--borda);border-radius:14px;overflow:hidden;}
+.vpc-col{padding:22px;}
+.vpc-col.user{background:linear-gradient(180deg,#f7faff,#fff);border-right:1.5px dashed var(--borda);}
+.vpc-col.prod{background:linear-gradient(180deg,#fffaf4,#fff);}
+.vpc-col h3{
+  margin:0 0 18px;font-size:1rem;color:var(--azul-esc);
+  display:flex;align-items:center;gap:9px;
+  padding-bottom:10px;border-bottom:2px solid #e6eefc;
+}
+.vpc-col.prod h3{border-bottom-color:#ffe3c7;}
+
+/* ============ ENTREGA ============ */
+.entrega{
+  background:linear-gradient(135deg,#07203f,#0b3c8c);
+  color:#fff;border-radius:var(--radius);padding:26px;margin-bottom:22px;
+}
+.entrega h3{margin:0 0 10px;font-size:1.05rem;display:flex;gap:9px;align-items:center;}
+.entrega p{margin:0 0 14px;color:#cddcf5;font-size:.9rem;}
+.entrega ul{margin:0;padding-left:20px;color:#e3edff;font-size:.9rem;}
+.entrega li{margin-bottom:6px;}
+.entrega-actions{
+  margin-top:20px;
+  padding-top:18px;
+  border-top:1px dashed rgba(255,255,255,.3);
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+}
+.btn-print-tab{
+  font-family:inherit;
+  background:#fff;
+  color:var(--azul);
+  border:2px solid #fff;
+  font-weight:800;
+  font-size:.92rem;
+  padding:13px 26px;
+  border-radius:999px;
+  cursor:pointer;
+  transition:.22s;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  min-height:48px;
+}
+.btn-print-tab:hover{
+  background:var(--laranja);
+  color:#fff;
+  border-color:var(--laranja);
+  transform:translateY(-2px);
+  box-shadow:0 10px 24px rgba(255,122,24,.45);
+}
+.btn-print-tab:focus-visible{outline:3px solid var(--laranja);outline-offset:3px;}
+.entrega-actions .hint-print{
+  color:#cddcf5;
+  font-size:.82rem;
+  font-style:italic;
+}
+
+/* ============ CRITÉRIOS ============ */
+.criterios{
+  border:1.5px dashed #cfdcef;border-radius:14px;padding:20px;background:#fbfdff;
+}
+.criterios h4{margin:0 0 12px;font-size:.95rem;color:var(--azul-esc);}
+.criterios ul{margin:0;padding-left:0;list-style:none;}
+.criterios li{
+  font-size:.88rem;color:#33415c;padding:9px 0 9px 30px;
+  position:relative;border-bottom:1px solid #eef2f8;
+}
+.criterios li:last-child{border-bottom:none;}
+.criterios li::before{
+  content:"✔";position:absolute;left:0;top:9px;
+  width:20px;height:20px;border-radius:50%;
+  background:#e7f8ee;color:var(--verde);
+  font-size:.72rem;display:grid;place-items:center;font-weight:900;
+}
+
+/* ============ TOOLBAR ============ */
+.toolbar{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  z-index:80;display:flex;gap:10px;align-items:center;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1.5px solid var(--borda);border-radius:999px;
+  padding:9px 12px;box-shadow:0 10px 30px rgba(11,60,140,.16);
+  max-width:calc(100vw - 24px);
+}
+.btn{
+  font-family:inherit;font-size:.86rem;font-weight:700;border-radius:999px;
+  padding:11px 20px;cursor:pointer;border:1.5px solid transparent;
+  transition:.2s;white-space:nowrap;min-height:44px;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+}
+.btn-primary{background:linear-gradient(135deg,var(--azul),var(--azul-clr));color:#fff;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(11,60,140,.3);}
+.btn-ghost{background:#fff;border-color:var(--borda);color:var(--muted);}
+.btn-ghost:hover{border-color:var(--azul-clr);color:var(--azul);}
+.btn-danger{background:#fff5f5;color:var(--vermelho);border-color:#f4d4d4;}
+.btn-danger:hover{background:var(--vermelho);color:#fff;}
+#save-status{
+  font-size:.78rem;font-weight:700;color:var(--verde);
+  opacity:0;transition:opacity .3s;padding-left:6px;
+}
+#save-status.show{opacity:1;}
+
+footer{text-align:center;padding:26px 16px 130px;color:var(--muted);font-size:.82rem;}
+
+/* ============ MODAL ============ */
+.modal{
+  position:fixed;inset:0;z-index:200;
+  display:none;align-items:center;justify-content:center;
+  padding:20px;background:rgba(7,32,63,.65);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  animation:modalFade .22s ease;
+}
+.modal.open{display:flex;}
+@keyframes modalFade{from{opacity:0;}to{opacity:1;}}
+
+.modal-box{
+  background:#fff;border-radius:18px;max-width:820px;width:100%;
+  max-height:92vh;overflow-y:auto;
+  box-shadow:0 30px 80px rgba(0,0,0,.4);
+  animation:modalIn .35s cubic-bezier(.2,.9,.3,1.05);
+  position:relative;
+}
+@keyframes modalIn{
+  from{opacity:0;transform:translateY(20px) scale(.97);}
+  to{opacity:1;transform:none;}
+}
+
+.modal-header{
+  position:sticky;top:0;z-index:2;
+  background:linear-gradient(135deg,#07203f,#0b3c8c);
+  color:#fff;padding:22px 26px;border-radius:18px 18px 0 0;
+  display:flex;justify-content:space-between;align-items:flex-start;gap:16px;
+}
+.modal-header h3{margin:0 0 4px;font-size:1.15rem;font-weight:800;}
+.modal-header p{margin:0;font-size:.88rem;color:#cddcf5;}
+.modal-close{
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
+  color:#fff;width:40px;height:40px;border-radius:50%;
+  cursor:pointer;font-size:1.4rem;line-height:1;transition:.22s;
+  flex:0 0 auto;display:grid;place-items:center;font-family:inherit;
+}
+.modal-close:hover{background:rgba(255,255,255,.28);transform:rotate(90deg);}
+.modal-close:focus-visible{outline:3px solid var(--laranja);outline-offset:2px;}
+
+.modal-body{padding:26px 28px 32px;}
+
+.modal-section{margin-bottom:26px;}
+.modal-section:last-child{margin-bottom:0;}
+.modal-section h4{
+  font-size:.98rem;color:var(--azul-esc);margin:0 0 10px;
+  display:flex;align-items:center;gap:8px;font-weight:800;
+}
+.modal-section p{margin:0 0 10px;font-size:.91rem;color:#33415c;line-height:1.65;}
+.modal-section ul,.modal-section ol{
+  margin:8px 0;padding-left:22px;
+  font-size:.91rem;color:#33415c;line-height:1.65;
+}
+.modal-section li{margin-bottom:6px;}
+.modal-section strong{color:var(--azul-esc);}
+
+.destaque{
+  background:linear-gradient(135deg,#eef4ff,#f8fbff);
+  border-left:4px solid var(--azul-clr);
+  padding:14px 18px;border-radius:0 10px 10px 0;
+  font-size:.89rem;color:#1e3a6b;margin:12px 0;
+}
+.alerta{
+  background:#fff8e6;border-left:4px solid var(--amarelo);
+  padding:14px 18px;border-radius:0 10px 10px 0;
+  font-size:.89rem;color:#78350f;margin:12px 0;
+}
+.sucesso{
+  background:#f0fdf4;border-left:4px solid var(--verde);
+  padding:14px 18px;border-radius:0 10px 10px 0;
+  font-size:.89rem;color:#14532d;margin:12px 0;
+}
+
+.svg-figure{
+  display:block;width:100%;max-width:100%;height:auto;
+  margin:14px auto;border-radius:12px;
+}
+.svg-caption{
+  text-align:center;font-size:.78rem;color:var(--muted);
+  font-style:italic;margin-top:-6px;margin-bottom:18px;
+}
+
+.grid-modal{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;}
+.mini-card{
+  background:#f8faff;border:1.5px solid var(--borda);
+  border-radius:10px;padding:12px 14px;
+  font-size:.87rem;color:#33415c;
+}
+.mini-card strong{display:block;color:var(--azul-esc);margin-bottom:4px;font-size:.88rem;}
+
+/* ============ BUSINESS MODEL CANVAS ============ */
+.bmc{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows:auto auto auto;
+  grid-template-areas:
+    "kp ka vp cr cs"
+    "kp kr vp ch cs"
+    "cost cost cost rev rev";
+  gap:10px;
+  margin-top:8px;
+}
+.bmc .bloco{
+  border:1.5px solid var(--borda);
+  border-radius:12px;
+  padding:14px;
+  background:#fbfcff;
+  border-top:4px solid var(--azul-clr);
+  display:flex;
+  flex-direction:column;
+  min-height:160px;
+}
+.bmc .bloco.destaque{
+  border-top-color:var(--laranja);
+  background:linear-gradient(180deg,#fff8f0,#fff 40%);
+  box-shadow:0 0 0 2px rgba(255,122,24,.10);
+}
+.bmc .bloco h4{margin:0 0 4px;font-size:.86rem;color:var(--azul-esc);}
+.bmc .bloco small{display:block;font-size:.72rem;color:var(--muted);margin-bottom:10px;line-height:1.4;}
+.bmc .bloco .list{margin-bottom:8px;flex:1;}
+.bmc .bloco .item textarea{min-height:56px;font-size:.82rem;padding:8px 10px;}
+.bmc .bloco .btn-add{font-size:.76rem;padding:8px 10px;margin-top:0;}
+
+.bmc .area-kp{grid-area:kp;}
+.bmc .area-ka{grid-area:ka;}
+.bmc .area-vp{grid-area:vp;}
+.bmc .area-cr{grid-area:cr;}
+.bmc .area-cs{grid-area:cs;}
+.bmc .area-kr{grid-area:kr;}
+.bmc .area-ch{grid-area:ch;}
+.bmc .area-cost{grid-area:cost;}
+.bmc .area-rev{grid-area:rev;}
+
+/* ============ VIABILIDADE ============ */
+.viab-col{
+  border-radius:14px;
+  padding:18px;
+  border:1.5px solid var(--borda);
+  background:#fbfcff;
+}
+.viab-col.custo{border-top:5px solid var(--vermelho);background:linear-gradient(180deg,#fff5f5,#fff 30%);}
+.viab-col.economia{border-top:5px solid var(--verde);background:linear-gradient(180deg,#f2fdf6,#fff 30%);}
+.viab-col h3{margin:0 0 12px;font-size:.96rem;color:var(--azul-esc);}
+
+/* ============ TIMELINE (CRONOGRAMA) ============ */
+.timeline{display:flex;flex-direction:column;gap:10px;}
+.timeline .slot{
+  display:grid;
+  grid-template-columns:90px 1fr;
+  gap:16px;
+  padding:14px 16px;
+  border:1.5px solid var(--borda);
+  border-radius:12px;
+  background:#fbfcff;
+  border-left:4px solid var(--azul-clr);
+}
+.timeline .slot .dur{
+  font-weight:800;color:var(--azul);font-size:.88rem;
+  display:flex;align-items:flex-start;padding-top:2px;
+}
+.timeline .slot h5{margin:0 0 4px;font-size:.92rem;color:var(--azul-esc);}
+.timeline .slot p{margin:0;font-size:.84rem;color:var(--muted);line-height:1.5;}
+
+/* ============================================================
+   HEADER DE IMPRESSÃO (só aparece no PDF)
+============================================================ */
+.print-header{display:none;}
+
+/* ============================================================
+   RESPONSIVO
+============================================================ */
+@media(max-width:900px){
+  .grid-3,.grid-4{grid-template-columns:1fr 1fr;}
+  .item-hmw{grid-template-columns:1fr 1fr;}
+  .item-hmw textarea{grid-column:1/-1;}
+  .item-hmw .badge{grid-column:1/-1;}
+  .bmc{
+    grid-template-columns:1fr 1fr;
+    grid-template-areas:
+      "vp vp"
+      "cs cs"
+      "ka kr"
+      "kp kp"
+      "cr ch"
+      "cost cost"
+      "rev rev";
+  }
+}
+
+@media(max-width:820px){
+  .vpc{grid-template-columns:1fr;}
+  .vpc-col.user{border-right:none;border-bottom:1.5px dashed var(--borda);}
+}
+
+@media(max-width:760px){
+  .empathy{grid-template-columns:1fr;}
+}
+
+@media(max-width:640px){
+  body{font-size:15px;}
+  main{padding:20px 12px 140px;}
+
+  .hero{padding:36px 16px 42px;}
+  .hero h1{font-size:1.35rem;line-height:1.25;}
+  .hero p{font-size:.88rem;}
+  .tag{font-size:.68rem;padding:5px 11px;}
+  .hero-steps{margin-top:18px;gap:6px;}
+  .hero-steps span{font-size:.7rem;padding:5px 10px;}
+
+  .tabs{padding:8px 10px;gap:8px;}
+  .tab-btn{
+    flex:1 1 100%;
+    padding:11px 14px;
+    font-size:.84rem;
+    justify-content:center;
+  }
+  .tab-btn .num{width:20px;height:20px;font-size:.7rem;}
+
+  .card{padding:18px 15px;border-radius:14px;margin-bottom:16px;}
+  .card-head{gap:10px;margin-bottom:14px;padding-bottom:12px;}
+  .card-head .icon{width:38px;height:38px;font-size:1.05rem;border-radius:10px;}
+  .card-head h2{font-size:1.02rem;}
+  .card-head p{font-size:.82rem;}
+
+  textarea{
+    font-size:16px;
+    min-height:130px !important;
+    padding:14px 15px;
+    line-height:1.6;
+  }
+  input[type="text"],input[type="url"]{
+    font-size:16px;
+    min-height:54px;
+    padding:14px 15px;
+  }
+  .item textarea{
+    min-height:96px !important;
+    font-size:15px;
+  }
+  .item-hmw textarea{
+    min-height:80px !important;
+  }
+  .role input{
+    font-size:15px;
+    min-height:50px;
+  }
+
+  .btn-del{width:42px;height:42px;font-size:1.35rem;border-radius:10px;}
+  .btn-add{padding:14px 16px;font-size:.92rem;min-height:50px;}
+  .btn-link-open{padding:14px 18px;min-height:50px;font-size:.9rem;}
+
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr;gap:14px;}
+
+  .persona-bar{padding:14px 16px;gap:12px;}
+  .persona-bar .avatar{width:46px;height:46px;font-size:1.3rem;}
+  .persona-bar .persona-fields{gap:10px;}
+  .persona-bar .persona-fields label{flex:1 1 100%;}
+  .quad{padding:14px;border-radius:12px;}
+  .quad h4{font-size:.94rem;}
+
+  .item-hmw{
+    grid-template-columns:1fr 1fr;
+    gap:6px;
+    padding:12px;
+  }
+  .item-hmw textarea{grid-column:1/-1;min-height:74px !important;}
+  .item-hmw select{font-size:.82rem;padding:10px;min-height:42px;}
+  .item-hmw .badge{grid-column:1/-1;padding:9px;}
+
+  .vpc-col{padding:18px 16px;}
+  .vpc-col h3{font-size:.96rem;}
+
+  .entrega{padding:20px 16px;border-radius:14px;}
+  .entrega h3{font-size:.98rem;}
+  .entrega-actions{flex-direction:column;align-items:stretch;}
+  .btn-print-tab{
+    width:100%;
+    justify-content:center;
+    padding:15px 22px;
+    font-size:.94rem;
+    min-height:54px;
+  }
+
+  .toolbar{
+    left:10px;
+    right:10px;
+    bottom:10px;
+    transform:none;
+    padding:8px;
+    gap:6px;
+    border-radius:16px;
+    max-width:none;
+  }
+  .toolbar .btn{
+    flex:1;
+    padding:10px 8px;
+    font-size:.76rem;
+    min-height:48px;
+    white-space:normal;
+    line-height:1.15;
+  }
+  .toolbar .btn-primary{flex:1.3;}
+  #save-status{display:none;}
+
+  .modal{padding:8px;}
+  .modal-box{border-radius:14px;max-height:96vh;}
+  .modal-header{padding:16px 18px;border-radius:14px 14px 0 0;}
+  .modal-header h3{font-size:1.02rem;}
+  .modal-header p{font-size:.82rem;}
+  .modal-close{width:36px;height:36px;font-size:1.3rem;}
+  .modal-body{padding:18px 16px 24px;}
+  .modal-section{margin-bottom:20px;}
+  .modal-section h4{font-size:.92rem;}
+  .modal-section p,.modal-section li{font-size:.86rem;}
+  .grid-modal{grid-template-columns:1fr;}
+  .destaque,.alerta,.sucesso{padding:12px 14px;font-size:.84rem;}
+
+  .conceito{padding:16px;padding-bottom:40px;}
+  .conceito h4{font-size:.95rem;}
+  .conceito p{font-size:.83rem;}
+
+  .criterios{padding:16px;}
+  .criterios li{font-size:.85rem;padding:10px 0 10px 28px;}
+
+  footer{padding:22px 16px 150px;font-size:.76rem;}
+
+  .bmc{
+    grid-template-columns:1fr;
+    grid-template-areas:
+      "vp" "cs" "ka" "kr" "kp" "cr" "ch" "cost" "rev";
+  }
+  .timeline .slot{grid-template-columns:1fr;}
+}
+
+@media(max-width:380px){
+  .hero h1{font-size:1.18rem;}
+  .tab-btn{font-size:.78rem;padding:10px 10px;}
+  .toolbar .btn{font-size:.7rem;padding:10px 6px;}
+  textarea{min-height:120px !important;}
+}
+
+@media(max-width:900px) and (orientation:landscape){
+  .hero{padding:26px 16px 32px;}
+  .hero h1{font-size:1.4rem;}
+  textarea{min-height:100px !important;}
+}
+
+/* ============================================================
+   IMPRESSÃO — PDF LIMPO PARA ENTREGA
+============================================================ */
+@media print{
+  @page{
+    size:A4;
+    margin:14mm 12mm 16mm 12mm;
+  }
+
+  html, body{
+    background:#fff !important;
+    font-size:10.5pt;
+    line-height:1.45;
+    color:#000;
+  }
+
+  .tabs,
+  .toolbar,
+  .btn-add,
+  .btn-del,
+  .btn-link-open,
+  .btn-print-tab,
+  .entrega-actions,
+  footer,
+  .modal,
+  .hero-steps,
+  .conceito.clicavel::before,
+  .conceito.clicavel .hint-click{
+    display:none !important;
+  }
+
+  *{
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+  }
+
+  .print-header{
+    display:block !important;
+    padding:0 0 12px 0;
+    margin:0 0 18px 0;
+    border-bottom:3px solid #0b3c8c;
+  }
+  .print-header h1{
+    font-size:17pt;
+    color:#0b3c8c;
+    margin:0 0 4px;
+    font-weight:800;
+    letter-spacing:-.3px;
+  }
+  .print-header .print-meta{
+    font-size:10pt;
+    color:#33415c;
+    margin:0;
+  }
+  .print-header .print-meta strong{color:#07203f;}
+
+  .hero{
+    background:#07203f !important;
+    padding:16px 14px !important;
+    page-break-after:avoid;
+    border-radius:10px;
+    margin-bottom:14px;
+  }
+  .hero::after{display:none !important;}
+  .hero h1{font-size:15pt;margin:0 0 8px;}
+  .hero p{font-size:9.5pt;margin:0 0 4px;color:#d7e3f7;}
+  .tag{font-size:7.5pt;padding:3px 9px;margin-bottom:8px;}
+
+  .panel{display:block !important;page-break-after:auto;}
+  .panel + .panel{margin-top:14px;}
+
+  body.printing-aba1 #aba2,
+  body.printing-aba1 #aba3,
+  body.printing-aba2 #aba1,
+  body.printing-aba2 #aba3,
+  body.printing-aba3 #aba1,
+  body.printing-aba3 #aba2{display:none !important;}
+
+  .card{
+    box-shadow:none !important;
+    border:1px solid #cfdcef !important;
+    page-break-inside:auto;
+    break-inside:auto;
+    padding:14px 16px;
+    margin-bottom:12px;
+    border-radius:10px;
+  }
+  .card-head{margin-bottom:10px;padding-bottom:8px;page-break-after:avoid;}
+  .card-head .icon{
+    width:32px;height:32px;font-size:.95rem;border-radius:8px;
+    -webkit-print-color-adjust:exact;
+  }
+  .card-head h2{font-size:12pt;}
+  .card-head p{font-size:9pt;}
+
+  h3.sub{font-size:9pt;margin:0 0 6px;}
+
+  .csd,
+  .quad,
+  .role,
+  .item,
+  .item-hmw,
+  .mini-card,
+  .criterios li,
+  .entrega li{
+    page-break-inside:avoid;
+    break-inside:avoid;
+  }
+
+  input[type="text"],
+  input[type="url"],
+  textarea,
+  select{
+    border:1px solid #cfdcef !important;
+    background:#fafbfd !important;
+    box-shadow:none !important;
+    resize:none !important;
+    overflow:visible !important;
+    height:auto !important;
+    min-height:0 !important;
+    padding:7px 9px !important;
+    font-size:10pt !important;
+    color:#000 !important;
+    page-break-inside:avoid;
+    border-radius:6px;
+  }
+  textarea{
+    min-height:auto !important;
+  }
+  label.field > span{
+    font-size:9pt;
+    color:#07203f;
+    margin-bottom:4px;
+  }
+  label.field{margin-bottom:10px;}
+
+  ::placeholder{
+    color:transparent !important;
+    opacity:0 !important;
+  }
+
+  .csd.c{background:#f2fdf6 !important;border-top:4px solid #15a34a !important;}
+  .csd.s{background:#fffaf0 !important;border-top:4px solid #d97706 !important;}
+  .csd.d{background:#fff5f5 !important;border-top:4px solid #dc2626 !important;}
+
+  .quad.q5{background:#fff6f6 !important;}
+  .quad.q6{background:#f3fdf7 !important;}
+
+  .conceito.inv{border-top:4px solid #7c3aed !important;}
+  .conceito.des{border-top:4px solid #ff7a18 !important;}
+  .conceito.inov{border-top:4px solid #15a34a !important;}
+
+  .entrega{
+    background:#07203f !important;
+    color:#fff !important;
+    page-break-inside:avoid;
+    padding:16px 18px;
+    border-radius:10px;
+  }
+  .entrega h3{font-size:11pt;}
+  .entrega p,.entrega ul,.entrega li{font-size:9pt;color:#e3edff !important;}
+
+  .criterios{
+    border:1px dashed #cfdcef !important;
+    background:#fbfdff !important;
+    padding:14px 16px;
+    page-break-inside:avoid;
+  }
+  .criterios h4{font-size:10pt;}
+  .criterios li{font-size:9pt;}
+
+  .grid-2{grid-template-columns:1fr 1fr !important;}
+  .grid-3{grid-template-columns:1fr 1fr 1fr !important;}
+  .grid-4{grid-template-columns:1fr 1fr !important;}
+  .empathy{grid-template-columns:1fr 1fr !important;}
+  .vpc{grid-template-columns:1fr 1fr !important;}
+
+  .item{display:flex !important;}
+  .item textarea{min-height:0 !important;}
+  .item-hmw{
+    display:grid !important;
+    grid-template-columns:1fr 90px 90px 130px !important;
+  }
+  .item-hmw .btn-del{display:none !important;}
+  .badge{font-size:8pt;padding:5px 7px;min-height:auto;}
+
+  .svg-figure{max-width:100%;}
+
+  #aba2{page-break-before:auto;}
+
+  body{overflow:visible !important;}
+  .modal{display:none !important;}
+
+  .bmc{
+    grid-template-columns:1fr 1fr 1fr 1fr 1fr !important;
+    grid-template-areas:
+      "kp ka vp cr cs"
+      "kp kr vp ch cs"
+      "cost cost cost rev rev" !important;
+    gap:6px !important;
+  }
+  .bmc .bloco{
+    page-break-inside:avoid;break-inside:avoid;
+    padding:8px 9px !important;min-height:0 !important;
+  }
+  .bmc .bloco h4{font-size:8pt !important;}
+  .bmc .bloco small{font-size:6.6pt !important;margin-bottom:5px !important;}
+  .bmc .bloco .item textarea{
+    min-height:0 !important;font-size:8pt !important;
+    padding:4px 6px !important;line-height:1.3 !important;
+  }
+  .bmc .bloco .btn-add{display:none !important;}
+  .viab-col,.timeline .slot{
+    page-break-inside:avoid;break-inside:avoid;
+  }
+  .timeline .slot{padding:8px 12px !important;}
+  .timeline .slot h5{font-size:9.5pt !important;}
+  .timeline .slot p,.timeline .slot .dur{font-size:8.5pt !important;}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= PRINT HEADER (só no PDF) ================= -->
+<div class="print-header">
+  <h1>Jornada de Inovação Industrial — Entrega do Squad</h1>
+  <p class="print-meta">
+    <strong>Squad:</strong> <span data-print="squad_nome">—</span>
+    &nbsp;·&nbsp;
+    <strong>Projeto:</strong> <span data-print="squad_projeto">—</span>
+  </p>
+</div>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="hero-inner">
+    <span class="tag">Design Thinking • Indústria • Squad de Inovação</span>
+    <h1>Bem-vindos ao início da nossa jornada de inovação!</h1>
+    <p>Hoje vocês assumem o papel de protagonistas no setor produtivo. A inovação é um fator essencial para a competitividade na indústria, e as empresas enfrentam diariamente desafios para aumentar a produtividade, reduzir custos, melhorar processos e criar soluções que atendam às necessidades de uma sociedade em constante transformação.</p>
+    <p>Nesta jornada, vocês aplicarão a metodologia de <strong>Design Thinking</strong> — identificação do problema, modelagem, prototipagem, testes e apresentação — para propor uma solução criativa e tecnológica alinhada às demandas reais do mercado.</p>
+    <div class="hero-steps">
+      <span>1 · Mapear o desafio</span>
+      <span>2 · Empatizar</span>
+      <span>3 · Idear</span>
+      <span>4 · Prototipar</span>
+      <span>5 · Testar</span>
+      <span>6 · Apresentar</span>
+    </div>
+  </div>
+</header>
+
+<!-- ================= ABAS ================= -->
+<nav class="tabs" role="tablist" aria-label="Etapas da jornada de inovação">
+  <button id="tab-aba1" class="tab-btn active" data-tab="aba1" role="tab"
+          aria-selected="true" aria-controls="aba1" tabindex="0">
+    <span class="num" aria-hidden="true">1</span> Boas-vindas &amp; Matriz CSD
+  </button>
+  <button id="tab-aba2" class="tab-btn" data-tab="aba2" role="tab"
+          aria-selected="false" aria-controls="aba2" tabindex="-1">
+    <span class="num" aria-hidden="true">2</span> Empatia, Ideação &amp; Proposta de Valor
+  </button>
+  <button id="tab-aba3" class="tab-btn" data-tab="aba3" role="tab"
+          aria-selected="false" aria-controls="aba3" tabindex="-1">
+    <span class="num" aria-hidden="true">3</span> Business Model Canvas &amp; Viabilidade
+  </button>
+</nav>
+
+<main>
+
+<!-- ============================================================
+     ABA 1
+============================================================ -->
+<section id="aba1" class="panel active" role="tabpanel" aria-labelledby="tab-aba1" tabindex="0">
+
+  <div class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">🏭</div>
+      <div>
+        <h2>Cenário do Desafio</h2>
+        <p>O seu grupo atuará como um <strong>Squad de Inovação</strong> responsável por resolver um problema real da indústria.</p>
+      </div>
+    </div>
+    <p style="margin-top:0;color:#33415c;font-size:.94rem;">
+      Nesta etapa inicial, vocês deverão acessar a <strong>plataforma SAGA da Inovação</strong> (ou o ambiente/plataforma de desafios indicada pelo docente)
+      para explorar os problemas cadastrados por empresas e setores industriais. O grupo escolherá <strong>um desafio real</strong> disponível na
+      plataforma, o qual servirá de base para todo o projeto ao longo da unidade.
+    </p>
+    <h3 class="sub" style="margin-top:20px;">O que você fará hoje</h3>
+    <div class="grid-4">
+      <div class="conceito"><h4>💬 Discutir os conceitos</h4><p>Debater as diferenças entre inovação, invenção e descoberta com base na pesquisa prévia.</p></div>
+      <div class="conceito"><h4>👥 Formar o Squad</h4><p>Organizar a equipe e definir os papéis: Líder, Pesquisador, Maker e Relator.</p></div>
+      <div class="conceito"><h4>🗺️ Mapear o Desafio</h4><p>Consultar a plataforma SAGA, selecionar o problema industrial e analisar seu contexto.</p></div>
+      <div class="conceito"><h4>🧩 Preencher a Matriz CSD</h4><p>Analisar as informações do problema e registrar Certezas, Suposições e Dúvidas.</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">💡</div>
+      <div>
+        <h2>1. Discutir os Conceitos</h2>
+        <p>Inovação, invenção e descoberta: qual é a diferença e por que isso importa na indústria?</p>
+      </div>
+    </div>
+    <div class="grid-3">
+      <div class="conceito inv">
+        <h4>🔬 Invenção</h4>
+        <p>Criação de algo <em>inteiramente novo</em> que nunca existiu antes. Pode não ter aplicação prática imediata nem chegar ao mercado.</p>
+      </div>
+      <div class="conceito des">
+        <h4>🔎 Descoberta</h4>
+        <p>Revelação de algo que <em>já existia</em> na natureza ou no conhecimento, mas ainda não era conhecido ou compreendido.</p>
+      </div>
+      <div class="conceito inov">
+        <h4>🚀 Inovação</h4>
+        <p>Transformar uma ideia, invenção ou descoberta em <em>valor real</em> — um produto, processo ou modelo de negócio que gera resultado para a indústria e para a sociedade.</p>
+      </div>
+    </div>
+    <label class="field" style="margin-top:22px;">
+      <span>✍️ Conclusão do debate do squad — como esses conceitos se aplicam ao desafio escolhido?</span>
+      <textarea data-key="conceitos_conclusao" rows="5" placeholder="Ex.: A nossa solução não é uma invenção inédita, mas uma INOVAÇÃO de processo: aplicamos sensores já existentes (descoberta tecnológica) de forma nova no chão de fábrica para reduzir paradas não planejadas..."></textarea>
+    </label>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">👥</div>
+      <div>
+        <h2>2. Formar o Squad</h2>
+        <p>Organizem a equipe e definam claramente os papéis de cada integrante.</p>
+      </div>
+    </div>
+    <div class="grid-2">
+      <label class="field"><span>Nome do Squad</span>
+        <input type="text" data-key="squad_nome" placeholder="Ex.: Squad Alpha Indústria 4.0">
+      </label>
+      <label class="field"><span>Nome do Projeto / Solução (provisório)</span>
+        <input type="text" data-key="squad_projeto" placeholder="Ex.: Projeto Visão Zero Paradas">
+      </label>
+    </div>
+    <div class="grid-4" style="margin-top:6px;">
+      <div class="role">
+        <span class="emoji" aria-hidden="true">🧭</span>
+        <strong>Líder</strong>
+        <small>Conduz o squad, organiza prazos, media conflitos e garante o foco no desafio.</small>
+        <input type="text" data-key="role_lider" placeholder="Nome do integrante">
+      </div>
+      <div class="role">
+        <span class="emoji" aria-hidden="true">🔍</span>
+        <strong>Pesquisador</strong>
+        <small>Levanta dados, referências, tecnologias disponíveis e benchmarks do setor.</small>
+        <input type="text" data-key="role_pesquisador" placeholder="Nome do integrante">
+      </div>
+      <div class="role">
+        <span class="emoji" aria-hidden="true">🛠️</span>
+        <strong>Maker</strong>
+        <small>Prototipa, testa, constrói e valida a solução na prática.</small>
+        <input type="text" data-key="role_maker" placeholder="Nome do integrante">
+      </div>
+      <div class="role">
+        <span class="emoji" aria-hidden="true">📝</span>
+        <strong>Relator</strong>
+        <small>Documenta as decisões, registra evidências e prepara a apresentação final.</small>
+        <input type="text" data-key="role_relator" placeholder="Nome do integrante">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">🗺️</div>
+      <div>
+        <h2>3. Mapear o Desafio — Plataforma SAGA da Inovação</h2>
+        <p>Registrem com precisão qual problema industrial foi selecionado e qual é o seu contexto.</p>
+      </div>
+    </div>
+    <div class="grid-3">
+      <label class="field"><span>Plataforma / Ambiente</span>
+        <input type="text" data-key="desafio_plataforma" value="SAGA da Inovação" placeholder="Ex.: SAGA da Inovação">
+      </label>
+      <label class="field"><span>Código / Identificador do Desafio</span>
+        <input type="text" data-key="desafio_codigo" placeholder="Ex.: DES-2024-0187">
+      </label>
+      <label class="field"><span>Data da seleção</span>
+        <input type="text" data-key="desafio_data" placeholder="dd/mm/aaaa">
+      </label>
+    </div>
+    <div class="grid-2">
+      <label class="field"><span>Título do Desafio</span>
+        <input type="text" data-key="desafio_titulo" placeholder="Ex.: Redução de paradas não planejadas na linha de extrusão">
+      </label>
+      <label class="field"><span>Empresa / Setor Industrial</span>
+        <input type="text" data-key="desafio_empresa" placeholder="Ex.: Metalúrgica XYZ — Setor Metalomecânico">
+      </label>
+    </div>
+
+    <label class="field">
+      <span>🔗 Link direto da demanda na plataforma SAGA</span>
+      <div class="link-input-group">
+        <input type="url" data-key="desafio_link"
+               placeholder="https://saga.inovacao.com.br/desafio/1234"
+               inputmode="url" autocomplete="off">
+        <button type="button" class="btn-link-open" id="btn-open-link">
+          🔗 Abrir link
+        </button>
+      </div>
+    </label>
+
+    <label class="field"><span>Descrição do problema (como está cadastrado na plataforma)</span>
+      <textarea data-key="desafio_descricao" rows="5" placeholder="Descreva o problema com as palavras da empresa: o que acontece, onde acontece, com que frequência e qual o impacto percebido..."></textarea>
+    </label>
+    <div class="grid-2">
+      <label class="field"><span>Contexto e Impacto no setor produtivo</span>
+        <textarea data-key="desafio_contexto" rows="5" placeholder="Quem é afetado? Quais indicadores pioram (OEE, custo, refugo, segurança, prazo)? Qual o impacto financeiro ou social?"></textarea>
+      </label>
+      <label class="field"><span>Restrições e recursos disponíveis</span>
+        <textarea data-key="desafio_restricoes" rows="5" placeholder="Orçamento, prazo, tecnologia disponível, normas de segurança, mão de obra, infraestrutura..."></textarea>
+      </label>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">🧩</div>
+      <div>
+        <h2>4. Matriz CSD — Certezas, Suposições e Dúvidas</h2>
+        <p>Organizem tudo o que o squad já sabe, o que acredita saber e o que ainda precisa investigar sobre o desafio.</p>
+      </div>
+    </div>
+    <div class="grid-3">
+      <div class="csd c">
+        <h4>✅ Certezas</h4>
+        <small class="hint">Fatos comprovados, dados verificáveis, informações confirmadas pela empresa ou por fontes confiáveis.</small>
+        <div class="list" data-list="certezas" data-placeholder="Ex.: A linha para 12 vezes por mês, segundo o relatório da empresa."></div>
+        <button class="btn-add" data-add="certezas">+ Adicionar certeza</button>
+      </div>
+      <div class="csd s">
+        <h4>🤔 Suposições</h4>
+        <small class="hint">Hipóteses plausíveis que o squad acredita serem verdade, mas que ainda não foram confirmadas.</small>
+        <div class="list" data-list="suposicoes" data-placeholder="Ex.: Acreditamos que a maior parte das paradas vem de falhas no sistema de refrigeração."></div>
+        <button class="btn-add" data-add="suposicoes">+ Adicionar suposição</button>
+      </div>
+      <div class="csd d">
+        <h4>❓ Dúvidas</h4>
+        <small class="hint">Perguntas em aberto que precisam ser respondidas com pesquisa, entrevistas ou testes.</small>
+        <div class="list" data-list="duvidas" data-placeholder="Ex.: Qual é o custo real de uma hora de parada nesta linha?"></div>
+        <button class="btn-add" data-add="duvidas">+ Adicionar dúvida</button>
+      </div>
+    </div>
+    <label class="field" style="margin-top:22px;">
+      <span>🔎 Plano de investigação — como o squad vai transformar as dúvidas em certezas?</span>
+      <textarea data-key="csd_plano" rows="4" placeholder="Ex.: Entrevista com o supervisor de produção (dia 12); visita técnica ao chão de fábrica; análise dos dados de manutenção dos últimos 6 meses..."></textarea>
+    </label>
+  </div>
+
+  <div class="entrega">
+    <h3>📦 Sua Entrega — Etapa 1</h3>
+    <p>Matriz CSD do squad totalmente preenchida, com a identificação clara do desafio selecionado na plataforma SAGA da Inovação, submetida aqui no AVA.</p>
+    <ul>
+      <li>Identificação do desafio (plataforma, empresa, título, link e descrição)</li>
+      <li>Matriz CSD completa: Certezas, Suposições e Dúvidas</li>
+      <li>Papéis do squad definidos</li>
+      <li>Diferenciação dos conceitos de invenção, descoberta e inovação</li>
+    </ul>
+    <div class="entrega-actions">
+      <button type="button" class="btn-print-tab" data-print-tab="aba1">
+        🖨️ Gerar PDF da Etapa 1
+      </button>
+      <span class="hint-print">Gera um PDF limpo só com esta etapa, prontinho para entregar no AVA.</span>
+    </div>
+  </div>
+
+  <div class="criterios">
+    <h4>🎯 Critérios de Avaliação — Etapa 1</h4>
+    <ul>
+      <li><strong>Diferenciação de Conceitos:</strong> o estudante diferencia com clareza os conceitos de invenção, descoberta e inovação aplicada à indústria?</li>
+      <li><strong>Análise e Categorização:</strong> o grupo selecionou um desafio adequado e categorizou de forma coerente e aprofundada as Certezas, Suposições e Dúvidas na Matriz CSD para o problema escolhido?</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ============================================================
+     ABA 2
+============================================================ -->
+<section id="aba2" class="panel" role="tabpanel" aria-labelledby="tab-aba2" tabindex="0">
+
+  <div class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">❤️</div>
+      <div>
+        <h2>Agora é hora de dar o próximo passo na esteira de inovação</h2>
+        <p>Da Matriz CSD para a empatia com quem vive o problema todos os dias no setor produtivo.</p>
+      </div>
+    </div>
+    <p style="margin-top:0;color:#33415c;font-size:.94rem;">
+      Agora que o seu squad já mapeou o desafio industrial selecionado na plataforma SAGA da Inovação através da Matriz CSD, é hora de avançar.
+      Toda grande solução industrial nasce da <strong>empatia</strong> com quem está vivenciando o problema diariamente no setor produtivo.
+      Hoje, vocês vão investigar profundamente a rotina do usuário/operador diretamente impactado por esse desafio para gerar e selecionar
+      ideias verdadeiramente transformadoras.
+    </p>
+
+    <h3 class="sub" style="margin-top:24px;">Conceitos Chave da Etapa <span style="font-weight:600;text-transform:none;letter-spacing:0;color:var(--azul-clr);font-size:.76rem;">— toque em cada box para saber mais</span></h3>
+    <div class="grid-3" style="margin-bottom: 28px;">
+
+      <div class="conceito inv clicavel"
+           data-modal="modal-empatia"
+           role="button" tabindex="0"
+           aria-label="Saiba mais sobre o Mapa de Empatia">
+        <h4>🧠 Mapa de Empatia</h4>
+        <p>Uma ferramenta visual para se colocar no lugar do usuário final. Ajuda o squad a sair do "achismo" documentando o que o usuário <em>vê, ouve, pensa e sente</em>, focando em suas dores reais.</p>
+        <span class="hint-click" aria-hidden="true">Toque para explorar →</span>
+      </div>
+
+      <div class="conceito des clicavel"
+           data-modal="modal-brainstorm"
+           role="button" tabindex="0"
+           aria-label="Saiba mais sobre o Brainstorming">
+        <h4>💭 Brainstorming</h4>
+        <p>Dinâmica de ideação livre de julgamentos. O objetivo inicial é a <strong>quantidade</strong> de ideias, estimulando o pensamento "fora da caixa" para que a equipe construa soluções inovadoras em conjunto.</p>
+        <span class="hint-click" aria-hidden="true">Toque para explorar →</span>
+      </div>
+
+      <div class="conceito inov clicavel"
+           data-modal="modal-vpc"
+           role="button" tabindex="0"
+           aria-label="Saiba mais sobre a Proposta de Valor">
+        <h4>💎 Proposta de Valor</h4>
+        <p>É a promessa de valor que a sua solução entrega. Ela conecta de forma direta e clara os <strong>benefícios do seu projeto</strong> às dores e expectativas do usuário que foram mapeadas anteriormente.</p>
+        <span class="hint-click" aria-hidden="true">Toque para explorar →</span>
+      </div>
+    </div>
+
+    <h3 class="sub" style="margin-top:20px;">O que você fará hoje</h3>
+    <div class="grid-3">
+      <div class="conceito"><h4>🧠 Mapear o Usuário</h4><p>Preencher o Mapa de Empatia colocando-se no lugar do operador, técnico ou usuário final afetado pelo problema.</p></div>
+      <div class="conceito"><h4>💭 Gerar Ideias (Brainstorm)</h4><p>Aplicar a dinâmica de brainstorming para propor, desenhar e registrar diversas ideias de soluções criativas e tecnológicas.</p></div>
+      <div class="conceito"><h4>🎯 Refinar e Selecionar</h4><p>Usar a técnica "Como podemos...?" para agrupar as melhores ideias por viabilidade e impacto.</p></div>
+    </div>
+    <div class="grid-2" style="margin-top:16px;">
+      <div class="conceito"><h4>💎 Definir o Valor</h4><p>Selecionar a ideia final do squad e preencher a Proposta de Valor, conectando os benefícios da solução às dores e expectativas do usuário.</p></div>
+      <div class="conceito"><h4>📦 Sua Entrega</h4><p>Mapa de Empatia e Proposta de Valor do squad totalmente preenchidos e submetidos aqui no AVA.</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">🧠</div>
+      <div>
+        <h2>1. Mapa de Empatia</h2>
+        <p>Coloque-se no lugar do usuário final impactado pelo desafio escolhido na plataforma SAGA.</p>
+      </div>
+    </div>
+
+    <div class="persona-bar">
+      <div class="avatar" aria-hidden="true">👷</div>
+      <div class="persona-fields">
+        <label class="field" style="margin:0;"><span>Nome fictício / Persona</span>
+          <input type="text" data-key="persona_nome" placeholder="Ex.: Sr. Carlos, 42 anos">
+        </label>
+        <label class="field" style="margin:0;"><span>Cargo / Função</span>
+          <input type="text" data-key="persona_cargo" placeholder="Ex.: Operador de máquina extrusora">
+        </label>
+        <label class="field" style="margin:0;"><span>Setor / Contexto de trabalho</span>
+          <input type="text" data-key="persona_setor" placeholder="Ex.: Linha de extrusão — turno noturno">
+        </label>
+      </div>
+    </div>
+
+    <div class="empathy">
+      <div class="quad q1">
+        <h4>👀 O que ele VÊ</h4>
+        <small class="hint">Ambiente, colegas, ferramentas, indicadores, o que observa no chão de fábrica.</small>
+        <div class="list" data-list="emp_ve" data-placeholder="Ex.: Painéis com luzes de alerta piscando, máquinas antigas, colegas correndo para apagar incêndio..."></div>
+        <button class="btn-add" data-add="emp_ve">+ Adicionar</button>
+      </div>
+      <div class="quad q2">
+        <h4>👂 O que ele OUVE</h4>
+        <small class="hint">Chefias, colegas, clientes, fornecedores, ruídos e ordens do dia a dia.</small>
+        <div class="list" data-list="emp_ouve" data-placeholder="Ex.: 'Tem que entregar hoje!', alarmes sonoros, cobrança do supervisor por meta..."></div>
+        <button class="btn-add" data-add="emp_ouve">+ Adicionar</button>
+      </div>
+      <div class="quad q3">
+        <h4>💭 O que ele PENSA e SENTE</h4>
+        <small class="hint">Preocupações, medos, motivações, frustrações e emoções não ditas.</small>
+        <div class="list" data-list="emp_pensa" data-placeholder="Ex.: Medo de ser responsabilizado pela parada; frustração por não ter autonomia para resolver..."></div>
+        <button class="btn-add" data-add="emp_pensa">+ Adicionar</button>
+      </div>
+      <div class="quad q4">
+        <h4>🗣️ O que ele FALA e FAZ</h4>
+        <small class="hint">Atitudes, comportamentos observáveis e frases típicas do dia a dia.</small>
+        <div class="list" data-list="emp_faz" data-placeholder="Ex.: Anota paradas em papel; avisa o supervisor por rádio; 'eu já sabia que ia dar problema'..."></div>
+        <button class="btn-add" data-add="emp_faz">+ Adicionar</button>
+      </div>
+      <div class="quad q5">
+        <h4>😖 DORES</h4>
+        <small class="hint">Obstáculos, riscos, retrabalho, perdas e frustrações prioritárias.</small>
+        <div class="list" data-list="emp_dores" data-placeholder="Ex.: Retrabalho constante, pressão por meta, falta de informação em tempo real..."></div>
+        <button class="btn-add" data-add="emp_dores">+ Adicionar</button>
+      </div>
+      <div class="quad q6">
+        <h4>🌟 NECESSIDADES e EXPECTATIVAS</h4>
+        <small class="hint">Ganhos desejados — o que tornaria o dia de trabalho dele realmente melhor.</small>
+        <div class="list" data-list="emp_necessidades" data-placeholder="Ex.: Aviso antecipado de falhas, menos burocracia, reconhecimento pelo resultado..."></div>
+        <button class="btn-add" data-add="emp_necessidades">+ Adicionar</button>
+      </div>
+    </div>
+
+    <label class="field" style="margin-top:22px;">
+      <span>💡 Insight principal da empatia — o que descobrimos que não sabíamos antes?</span>
+      <textarea data-key="emp_insight" rows="4" placeholder="Ex.: Descobrimos que o operador já percebe sinais de falha minutos antes do alarme, mas não tem canal para reportar isso rapidamente..."></textarea>
+    </label>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">💭</div>
+      <div>
+        <h2>2. Gerar Ideias — Brainstorming</h2>
+        <p>Regra de ouro: gerar primeiro, julgar depois. Quantidade gera qualidade!</p>
+      </div>
+    </div>
+    <div class="grid-2">
+      <label class="field"><span>Pergunta provocadora que orientou o brainstorm</span>
+        <input type="text" data-key="brainstorm_pergunta" placeholder="Ex.: Como poderíamos dar ao operador voz ativa na prevenção de falhas?">
+      </label>
+      <label class="field"><span>Regras acordadas pelo squad</span>
+        <input type="text" data-key="brainstorm_regras" value="Sem críticas • Ideias malucas são bem-vindas • Construir sobre a ideia do outro • Foco no problema" placeholder="Regras do brainstorm">
+      </label>
+    </div>
+    <h3 class="sub" style="margin-top:8px;">Ideias geradas (mínimo sugerido: 10)</h3>
+    <div class="list" data-list="brainstorm" data-placeholder="Ex.: Sensor IoT de vibração com alerta no celular do operador..."></div>
+    <button class="btn-add" data-add="brainstorm">+ Adicionar ideia</button>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">🎯</div>
+      <div>
+        <h2>3. Refinar e Selecionar — "Como podemos...?"</h2>
+        <p>Transforme as ideias em perguntas "Como podemos...?" e classifique cada uma por <strong>viabilidade</strong> e <strong>impacto</strong>.</p>
+      </div>
+    </div>
+    <div class="list" data-list="hmw" data-placeholder="Como podemos...?"></div>
+    <button class="btn-add" data-add="hmw">+ Adicionar "Como podemos...?"</button>
+    <div class="grid-3" style="margin-top:22px;">
+      <label class="field" style="margin:0;"><span>🏆 Ideia final selecionada pelo squad</span>
+        <input type="text" data-key="ideia_final" placeholder="Escreva o nome/título da ideia vencedora">
+      </label>
+      <label class="field" style="margin:0;"><span>Por que ela venceu? (justificativa)</span>
+        <textarea data-key="ideia_justificativa" rows="3" placeholder="Ex.: Alto impacto na dor principal e viável com tecnologia já disponível na planta..."></textarea>
+      </label>
+      <label class="field" style="margin:0;"><span>Como ela será testada/prototipada?</span>
+        <textarea data-key="ideia_teste" rows="3" placeholder="Ex.: Piloto em uma única máquina por 30 dias, comparando OEE antes e depois..."></textarea>
+      </label>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">💎</div>
+      <div>
+        <h2>4. Proposta de Valor</h2>
+        <p>Conecte diretamente os benefícios da solução às dores e expectativas do usuário mapeado.</p>
+      </div>
+    </div>
+    <div class="vpc">
+      <div class="vpc-col user">
+        <h3>👷 Perfil do Usuário</h3>
+        <label class="field"><span>Tarefas / O que ele precisa fazer no dia a dia</span>
+          <textarea data-key="vpc_tarefas" rows="4" placeholder="Ex.: Operar a extrusora, monitorar temperatura, registrar produção, comunicar falhas..."></textarea>
+        </label>
+        <label class="field"><span>😖 Dores prioritárias</span>
+          <textarea data-key="vpc_dores" rows="5" placeholder="Liste as 3 dores mais críticas identificadas no Mapa de Empatia..."></textarea>
+        </label>
+        <label class="field" style="margin-bottom:0;"><span>🌟 Ganhos esperados</span>
+          <textarea data-key="vpc_ganhos" rows="4" placeholder="Ex.: Trabalhar sem surpresas, ser reconhecido, ter controle sobre o processo..."></textarea>
+        </label>
+      </div>
+      <div class="vpc-col prod">
+        <h3>🚀 Proposta de Valor do Squad</h3>
+        <label class="field"><span>Produto / Serviço / Processo proposto</span>
+          <textarea data-key="vpc_produto" rows="4" placeholder="Ex.: Sistema de monitoramento preditivo com alerta mobile para o operador..."></textarea>
+        </label>
+        <label class="field"><span>💊 Aliviantes de dor (como a solução elimina as dores)</span>
+          <textarea data-key="vpc_aliviantes" rows="5" placeholder="Ex.: Avisa a falha 15 minutos antes, eliminando a parada não planejada e a pressão sobre o operador..."></textarea>
+        </label>
+        <label class="field" style="margin-bottom:0;"><span>✨ Criadores de ganho (como a solução gera valor extra)</span>
+          <textarea data-key="vpc_criadores" rows="4" placeholder="Ex.: Dá autonomia ao operador, gera dados para reconhecimento de performance, aumenta o OEE..."></textarea>
+        </label>
+      </div>
+    </div>
+    <label class="field" style="margin-top:22px;">
+      <span>📢 Declaração final da Proposta de Valor</span>
+      <textarea data-key="vpc_declaracao" rows="4" placeholder="Nossa solução [NOME] ajuda [USUÁRIO] que sofre com [DOR PRINCIPAL] a [BENEFÍCIO ESPERADO], por meio de [COMO A SOLUÇÃO FUNCIONA], diferentemente de [ALTERNATIVA ATUAL]."></textarea>
+    </label>
+    <div class="grid-2" style="margin-top:4px;">
+      <label class="field" style="margin:0;"><span>📊 Métrica de sucesso (como saberemos que deu certo)</span>
+        <textarea data-key="vpc_metrica" rows="3" placeholder="Ex.: Redução de 30% nas paradas não planejadas em 6 meses; aumento de 8 p.p. no OEE..."></textarea>
+      </label>
+      <label class="field" style="margin:0;"><span>⚠️ Riscos e barreiras de implementação</span>
+        <textarea data-key="vpc_riscos" rows="3" placeholder="Ex.: Resistência da equipe, custo dos sensores, integração com sistemas legados..."></textarea>
+      </label>
+    </div>
+  </div>
+
+  <div class="entrega">
+    <h3>📦 Sua Entrega — Etapa 2</h3>
+    <p>Mapa de Empatia e Proposta de Valor do squad totalmente preenchidos e submetidos aqui no AVA.</p>
+    <ul>
+      <li>Mapa de Empatia completo (vê, ouve, pensa/sente, fala/faz, dores e necessidades)</li>
+      <li>Brainstorming registrado com as ideias geradas</li>
+      <li>Perguntas "Como podemos...?" classificadas por viabilidade e impacto</li>
+      <li>Ideia final selecionada e justificada</li>
+      <li>Proposta de Valor conectada às dores e expectativas do usuário</li>
+    </ul>
+    <div class="entrega-actions">
+      <button type="button" class="btn-print-tab" data-print-tab="aba2">
+        🖨️ Gerar PDF da Etapa 2
+      </button>
+      <span class="hint-print">Gera um PDF limpo só com esta etapa, prontinho para entregar no AVA.</span>
+    </div>
+  </div>
+
+  <div class="criterios">
+    <h4>🎯 Critérios de Avaliação — Etapa 2</h4>
+    <ul>
+      <li><strong>Indicador:</strong> análise da empatia com o usuário final e da aderência da proposta de valor em relação ao problema mapeado.</li>
+      <li>O grupo demonstrou empatia ao mapear com precisão as dores, necessidades e expectativas do usuário final/operador no Mapa de Empatia?</li>
+      <li>A solução final selecionada na dinâmica de ideação responde diretamente às dores prioritárias e gera ganho real de valor para o processo/contexto industrial escolhido?</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ============================================================
+     ABA 3
+============================================================ -->
+<section id="aba3" class="panel" role="tabpanel" aria-labelledby="tab-aba3" tabindex="0">
+
+  <div class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">📊</div>
+      <div>
+        <h2>Da solução idealizada ao modelo de negócio viável</h2>
+        <p>Business Model Canvas e análise de viabilidade econômica do projeto de inovação eletromecânica.</p>
+      </div>
+    </div>
+    <p style="margin-top:0;color:#33415c;font-size:.94rem;">
+      Chegamos à etapa em que a solução deixa de ser apenas uma boa ideia e passa a ser <strong>um negócio</strong>.
+      Nesta aula de 4 horas, o squad vai traduzir a Proposta de Valor construída na Etapa 2 em um <strong>modelo de negócio</strong>
+      usando o <strong>Business Model Canvas (Osterwalder &amp; Pigneur)</strong> — com atenção especial à interdependência entre
+      <em>Proposta de Valor</em>, <em>Segmento de Clientes</em>, <em>Atividades-Chave</em> e <em>Estrutura de Custos</em>.
+      Em seguida, vamos confrontar <strong>quanto custa produzir a solução</strong> versus <strong>quanto ela economiza no chão de fábrica</strong>
+      e levantar tudo o que é necessário para prototipar.
+    </p>
+
+    <h3 class="sub" style="margin-top:22px;">O que você fará hoje</h3>
+    <div class="grid-4">
+      <div class="conceito"><h4>📐 Entender o Canvas</h4><p>Estudar a estrutura do Business Model Canvas e a interdependência entre os 4 blocos-chave.</p></div>
+      <div class="conceito"><h4>🧩 Preencher o BMC</h4><p>Construir coletivamente o Canvas do projeto de inovação eletromecânica do squad.</p></div>
+      <div class="conceito"><h4>💰 Analisar a viabilidade</h4><p>Comparar custo de produção da solução versus economia gerada no chão de fábrica.</p></div>
+      <div class="conceito"><h4>🛠️ Levantar recursos</h4><p>Detalhar materiais, ferramentas e conhecimentos técnicos para a fase de prototipagem.</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">📚</div>
+      <div>
+        <h2>1. Business Model Canvas — Conceitos-Chave</h2>
+        <p>9 blocos que descrevem como a solução cria, entrega e captura valor. Toque nos boxes para explorar.</p>
+      </div>
+    </div>
+    <div class="grid-3" style="margin-bottom:24px;">
+      <div class="conceito inov clicavel" data-modal="modal-bmc" role="button" tabindex="0" aria-label="Saiba mais sobre o Business Model Canvas">
+        <h4>📐 O que é o BMC</h4>
+        <p>Ferramenta visual criada por <strong>Alexander Osterwalder</strong> que resume, em uma única página, como um negócio cria, entrega e captura valor.</p>
+        <span class="hint-click" aria-hidden="true">Toque para explorar →</span>
+      </div>
+      <div class="conceito inv clicavel" data-modal="modal-interdep" role="button" tabindex="0" aria-label="Saiba mais sobre a interdependência dos blocos">
+        <h4>🔗 Interdependência</h4>
+        <p>Nenhum bloco vive sozinho. Mudar o Segmento de Clientes impacta diretamente as Atividades-Chave e a Estrutura de Custos.</p>
+        <span class="hint-click" aria-hidden="true">Toque para explorar →</span>
+      </div>
+      <div class="conceito des clicavel" data-modal="modal-viab" role="button" tabindex="0" aria-label="Saiba mais sobre viabilidade econômica">
+        <h4>💰 Viabilidade Econômica</h4>
+        <p>Um modelo só é sustentável se a economia gerada no chão de fábrica superar o investimento de produção em prazo razoável (payback).</p>
+        <span class="hint-click" aria-hidden="true">Toque para explorar →</span>
+      </div>
+    </div>
+
+    <h3 class="sub">🎯 Os 4 blocos em destaque nesta etapa</h3>
+    <div class="grid-4">
+      <div class="conceito" style="border-top-color:var(--laranja);">
+        <h4>💎 Proposta de Valor</h4>
+        <p>O que a solução entrega de único. <em>Vem diretamente da Etapa 2.</em></p>
+      </div>
+      <div class="conceito" style="border-top-color:var(--verde);">
+        <h4>👥 Segmento de Clientes</h4>
+        <p>Para quem criamos valor. Na indústria: empresa, operador, supervisor, cliente final.</p>
+      </div>
+      <div class="conceito" style="border-top-color:var(--azul-clr);">
+        <h4>⚙️ Atividades-Chave</h4>
+        <p>O que precisamos fazer para entregar a proposta: P&amp;D, prototipagem, testes, instalação, treinamento.</p>
+      </div>
+      <div class="conceito" style="border-top-color:var(--vermelho);">
+        <h4>💵 Estrutura de Custos</h4>
+        <p>Quanto custa operar o modelo: materiais, mão de obra, tecnologia, manutenção, treinamento.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">🧩</div>
+      <div>
+        <h2>2. Business Model Canvas do Squad</h2>
+        <p>Preencham os 9 blocos pensando no projeto de inovação eletromecânica do squad. Os blocos destacados em <strong style="color:var(--laranja)">laranja</strong> são prioritários.</p>
+      </div>
+    </div>
+
+    <div class="bmc">
+      <div class="bloco area-kp">
+        <h4>🤝 Parceiros-Chave</h4>
+        <small>Aliados externos: fornecedores, laboratórios, SENAI, universidades, integradores.</small>
+        <div class="list" data-list="bmc_parceiros" data-placeholder="Ex.: SENAI para prototipagem, fornecedor de sensores..."></div>
+        <button class="btn-add" data-add="bmc_parceiros">+ Adicionar</button>
+      </div>
+
+      <div class="bloco area-ka destaque">
+        <h4>⚙️ Atividades-Chave</h4>
+        <small>O que o squad precisa executar para a proposta de valor existir.</small>
+        <div class="list" data-list="bmc_atividades" data-placeholder="Ex.: Projeto eletromecânico, prototipagem, testes em bancada..."></div>
+        <button class="btn-add" data-add="bmc_atividades">+ Adicionar</button>
+      </div>
+
+      <div class="bloco area-vp destaque">
+        <h4>💎 Proposta de Valor</h4>
+        <small>Traga a declaração final da Etapa 2, resumida em uma frase clara.</small>
+        <div class="list" data-list="bmc_valor" data-placeholder="Ex.: Monitoramento preditivo que avisa o operador 15 min antes da falha..."></div>
+        <button class="btn-add" data-add="bmc_valor">+ Adicionar</button>
+      </div>
+
+      <div class="bloco area-cr">
+        <h4>💬 Relacionamento</h4>
+        <small>Como o squad se relaciona com quem usa: treinamento, suporte, feedback.</small>
+        <div class="list" data-list="bmc_relacionamento" data-placeholder="Ex.: Treinamento presencial, suporte remoto mensal..."></div>
+        <button class="btn-add" data-add="bmc_relacionamento">+ Adicionar</button>
+      </div>
+
+      <div class="bloco area-cs destaque">
+        <h4>👥 Segmento de Clientes</h4>
+        <small>Quem paga, quem usa e quem se beneficia.</small>
+        <div class="list" data-list="bmc_segmentos" data-placeholder="Ex.: Indústria metalmecânica de médio porte, operadores de linha..."></div>
+        <button class="btn-add" data-add="bmc_segmentos">+ Adicionar</button>
+      </div>
+
+      <div class="bloco area-kr">
+        <h4>🧰 Recursos-Chave</h4>
+        <small>Indispensáveis: pessoas, equipamentos, software, patentes, infraestrutura.</small>
+        <div class="list" data-list="bmc_recursos" data-placeholder="Ex.: Bancada de eletrônica, osciloscópio, kit de sensores..."></div>
+        <button class="btn-add" data-add="bmc_recursos">+ Adicionar</button>
+      </div>
+
+      <div class="bloco area-ch">
+        <h4>📡 Canais</h4>
+        <small>Como a solução chega ao cliente.</small>
+        <div class="list" data-list="bmc_canais" data-placeholder="Ex.: Instalação in-loco, distribuidor de automação..."></div>
+        <button class="btn-add" data-add="bmc_canais">+ Adicionar</button>
+      </div>
+
+      <div class="bloco area-cost destaque">
+        <h4>💵 Estrutura de Custos</h4>
+        <small>Todos os custos para o modelo funcionar (detalhado no bloco 3).</small>
+        <div class="list" data-list="bmc_custos" data-placeholder="Ex.: Sensores, microcontrolador, mão de obra, licenças..."></div>
+        <button class="btn-add" data-add="bmc_custos">+ Adicionar</button>
+      </div>
+
+      <div class="bloco area-rev">
+        <h4>💸 Fontes de Receita</h4>
+        <small>Como o modelo gera retorno: economia, venda, licenciamento, serviço.</small>
+        <div class="list" data-list="bmc_receitas" data-placeholder="Ex.: Economia por redução de paradas, venda do kit, contrato..."></div>
+        <button class="btn-add" data-add="bmc_receitas">+ Adicionar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">💰</div>
+      <div>
+        <h2>3. Viabilidade Econômica — Produção vs. Economia</h2>
+        <p>Quanto custa produzir a solução? Quanto ela economiza no chão de fábrica? Em quanto tempo se paga?</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="viab-col custo">
+        <h3>💸 Custo de Produção da Solução (Protótipo + Implantação)</h3>
+        <div class="list" data-list="viab_custos" data-placeholder="Ex.: Kit de sensores IoT — R$ 850,00 (unidade)"></div>
+        <button class="btn-add" data-add="viab_custos">+ Adicionar custo</button>
+        <label class="field" style="margin-top:14px;">
+          <span>Subtotal estimado de produção (R$)</span>
+          <input type="text" data-key="viab_subtotal_custo" placeholder="Ex.: 4.500,00">
+        </label>
+      </div>
+
+      <div class="viab-col economia">
+        <h3>🌟 Economia Gerada no Chão de Fábrica</h3>
+        <div class="list" data-list="viab_economias" data-placeholder="Ex.: Redução de 30% das paradas — economia de R$ 12.000/mês"></div>
+        <button class="btn-add" data-add="viab_economias">+ Adicionar economia</button>
+        <label class="field" style="margin-top:14px;">
+          <span>Subtotal estimado de economia (R$/mês)</span>
+          <input type="text" data-key="viab_subtotal_economia" placeholder="Ex.: 12.000,00">
+        </label>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:22px;">
+      <label class="field" style="margin:0;">
+        <span>📈 Payback estimado (meses)</span>
+        <input type="text" data-key="viab_payback" placeholder="Ex.: 6 meses">
+      </label>
+      <label class="field" style="margin:0;">
+        <span>💹 Retorno no 1º ano (R$)</span>
+        <input type="text" data-key="viab_retorno_ano" placeholder="Ex.: 144.000,00">
+      </label>
+      <label class="field" style="margin:0;">
+        <span>🎯 ROI estimado (%)</span>
+        <input type="text" data-key="viab_roi" placeholder="Ex.: 3.100%">
+      </label>
+    </div>
+
+    <label class="field" style="margin-top:18px;">
+      <span>⚖️ Conclusão do squad — a solução é economicamente viável? Por quê?</span>
+      <textarea data-key="viab_conclusao" rows="4" placeholder="Ex.: Sim. O investimento de R$ 4.500 se paga em ~6 meses, com economia anual projetada de R$ 144.000..."></textarea>
+    </label>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">🛠️</div>
+      <div>
+        <h2>4. Recursos para a Fase de Prototipagem</h2>
+        <p>Levantem tudo o que será necessário para construir o primeiro protótipo funcional.</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="quad q1">
+        <h4>🧱 Materiais</h4>
+        <small class="hint">Insumos físicos: componentes eletrônicos, chapas, cabos, sensores, filamentos.</small>
+        <div class="list" data-list="proto_materiais" data-placeholder="Ex.: 3 sensores de vibração, ESP32, cabos blindados..."></div>
+        <button class="btn-add" data-add="proto_materiais">+ Adicionar</button>
+      </div>
+      <div class="quad q2">
+        <h4>🔧 Ferramentas</h4>
+        <small class="hint">Ferramentas manuais e elétricas usadas na bancada.</small>
+        <div class="list" data-list="proto_ferramentas" data-placeholder="Ex.: Ferro de solda, multímetro, alicate de corte..."></div>
+        <button class="btn-add" data-add="proto_ferramentas">+ Adicionar</button>
+      </div>
+      <div class="quad q3">
+        <h4>🖥️ Equipamentos e Software</h4>
+        <small class="hint">Bancada, impressora 3D, osciloscópio, IDE, CAD, etc.</small>
+        <div class="list" data-list="proto_equipamentos" data-placeholder="Ex.: Impressora 3D, osciloscópio, Arduino IDE, Fusion 360..."></div>
+        <button class="btn-add" data-add="proto_equipamentos">+ Adicionar</button>
+      </div>
+      <div class="quad q4">
+        <h4>🎓 Conhecimentos Técnicos</h4>
+        <small class="hint">Competências necessárias: eletrônica, programação, mecânica, automação.</small>
+        <div class="list" data-list="proto_conhecimentos" data-placeholder="Ex.: Programação embarcada, leitura de esquema elétrico, solda SMD..."></div>
+        <button class="btn-add" data-add="proto_conhecimentos">+ Adicionar</button>
+      </div>
+      <div class="quad q5">
+        <h4>🤝 Parcerias e Laboratórios</h4>
+        <small class="hint">Onde prototipar: laboratório escolar, SENAI, FabLab, oficina parceira.</small>
+        <div class="list" data-list="proto_parcerias" data-placeholder="Ex.: Laboratório de eletrônica da escola, FabLab municipal..."></div>
+        <button class="btn-add" data-add="proto_parcerias">+ Adicionar</button>
+      </div>
+      <div class="quad q6">
+        <h4>🛡️ Segurança e Normas</h4>
+        <small class="hint">EPIs, NRs aplicáveis, certificações, cuidados elétricos.</small>
+        <div class="list" data-list="proto_seguranca" data-placeholder="Ex.: EPI básico, NR-10, cuidado com capacitores carregados..."></div>
+        <button class="btn-add" data-add="proto_seguranca">+ Adicionar</button>
+      </div>
+    </div>
+
+    <label class="field" style="margin-top:22px;">
+      <span>🚧 Principais desafios da prototipagem — o que pode dar errado e como mitigar?</span>
+      <textarea data-key="proto_desafios" rows="4" placeholder="Ex.: Falta de componente específico — mitigação: usar alternativa equivalente; tempo curto de bancada — agendar horários..."></textarea>
+    </label>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">⏱️</div>
+      <div>
+        <h2>5. Cronograma da Aula (4 horas)</h2>
+        <p>Sugestão de aproveitamento do tempo com pausa para café no meio.</p>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="slot"><div class="dur">15 min</div><div><h5>Abertura e revisão das Etapas 1 e 2</h5><p>Retomada rápida do desafio escolhido, do Mapa de Empatia e da Proposta de Valor.</p></div></div>
+      <div class="slot"><div class="dur">30 min</div><div><h5>Conceitos BMC (Osterwalder)</h5><p>Apresentação dos 9 blocos com foco na interdependência entre Proposta de Valor, Segmento de Clientes, Atividades-Chave e Estrutura de Custos.</p></div></div>
+      <div class="slot"><div class="dur">45 min</div><div><h5>Construção coletiva do Business Model Canvas</h5><p>Cada squad preenche os 9 blocos do Canvas do seu projeto de inovação eletromecânica.</p></div></div>
+      <div class="slot"><div class="dur">15 min</div><div><h5>☕ Pausa</h5><p>Intervalo para café e troca informal entre squads.</p></div></div>
+      <div class="slot"><div class="dur">45 min</div><div><h5>Viabilidade econômica</h5><p>Levantamento de custos de produção x economia gerada no chão de fábrica; cálculo de payback e ROI.</p></div></div>
+      <div class="slot"><div class="dur">40 min</div><div><h5>Recursos para prototipagem</h5><p>Detalhamento de materiais, ferramentas, equipamentos e conhecimentos técnicos necessários.</p></div></div>
+      <div class="slot"><div class="dur">30 min</div><div><h5>Pitch rápido dos squads</h5><p>Cada squad apresenta em até 3 minutos seu Canvas + viabilidade + recursos.</p></div></div>
+      <div class="slot"><div class="dur">20 min</div><div><h5>Feedback, fechamento e próximos passos</h5><p>Devolutiva do docente, ajustes finais e alinhamento da fase de prototipagem.</p></div></div>
+    </div>
+  </div>
+
+  <div class="entrega">
+    <h3>📦 Sua Entrega — Etapa 3</h3>
+    <p>Business Model Canvas do projeto, análise de viabilidade econômica e lista de recursos para prototipagem, submetidos aqui no AVA.</p>
+    <ul>
+      <li>Business Model Canvas completo (9 blocos) do projeto de inovação eletromecânica</li>
+      <li>Descrição da interdependência entre Proposta de Valor, Segmento de Clientes, Atividades-Chave e Estrutura de Custos</li>
+      <li>Análise de viabilidade econômica: custo de produção vs. economia gerada + payback/ROI</li>
+      <li>Lista detalhada de materiais, ferramentas, equipamentos e conhecimentos técnicos para prototipagem</li>
+    </ul>
+    <div class="entrega-actions">
+      <button type="button" class="btn-print-tab" data-print-tab="aba3">
+        🖨️ Gerar PDF da Etapa 3
+      </button>
+      <span class="hint-print">Gera um PDF limpo só com esta etapa, prontinho para entregar no AVA.</span>
+    </div>
+  </div>
+
+  <div class="criterios">
+    <h4>🎯 Critérios de Avaliação — Etapa 3</h4>
+    <ul>
+      <li><strong>Domínio do BMC:</strong> o squad preencheu os 9 blocos com coerência e demonstrou entender a interdependência entre Proposta de Valor, Segmento de Clientes, Atividades-Chave e Estrutura de Custos?</li>
+      <li><strong>Viabilidade econômica:</strong> a análise de custo x economia está embasada em estimativas realistas e o payback/ROI está calculado?</li>
+      <li><strong>Planejamento da prototipagem:</strong> a lista de materiais, ferramentas e conhecimentos técnicos é completa e adequada à solução proposta?</li>
+    </ul>
+  </div>
+
+</section>
+
+</main>
+
+<!-- ================= TOOLBAR ================= -->
+<div class="toolbar" role="toolbar" aria-label="Ações do formulário">
+  <button class="btn btn-primary" id="btn-print-all" type="button">🖨️ PDF completo</button>
+  <button class="btn btn-ghost" id="btn-save" type="button">💾 Salvar</button>
+  <button class="btn btn-danger" id="btn-clear" type="button">🗑️ Limpar</button>
+  <span id="save-status" role="status" aria-live="polite">Salvo ✓</span>
+</div>
+
+<footer>
+  Jornada de Inovação Industrial · Metodologia Design Thinking · Plataforma SAGA da Inovação
+</footer>
+
+<!-- ============================================================
+     MODAIS
+============================================================ -->
+<div class="modal" id="modal-empatia" role="dialog" aria-modal="true" aria-labelledby="modal-empatia-title" aria-hidden="true">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <h3 id="modal-empatia-title">🧠 Mapa de Empatia</h3>
+        <p>Entenda profundamente quem vive o problema no chão de fábrica</p>
+      </div>
+      <button class="modal-close" type="button" aria-label="Fechar modal">×</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <h4>📖 O que é</h4>
+        <p>O Mapa de Empatia é uma ferramenta visual do Design Thinking que ajuda o squad a <strong>sair do "achismo"</strong> e se colocar de verdade no lugar do usuário. Em vez de imaginar o que ele precisa, você organiza evidências em 6 quadrantes: o que ele <strong>vê</strong>, <strong>ouve</strong>, <strong>pensa e sente</strong>, <strong>fala e faz</strong>, além de suas <strong>dores</strong> e <strong>necessidades</strong>.</p>
+        <div class="destaque">
+          💡 <strong>Regra de ouro:</strong> o mapa deve ser preenchido com base em <em>entrevistas e observação real</em> do operador, não com o que o squad acha que sabe.
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>🗺️ Estrutura visual</h4>
+        <svg class="svg-figure" viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg" aria-label="Diagrama do Mapa de Empatia com persona central e seis quadrantes">
+          <defs>
+            <linearGradient id="gradPersona" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#0b3c8c"/>
+              <stop offset="1" stop-color="#1a5fd0"/>
+            </linearGradient>
+          </defs>
+          <rect width="600" height="360" fill="#f8fbff" rx="14"/>
+          <circle cx="110" cy="175" r="70" fill="url(#gradPersona)"/>
+          <text x="110" y="170" text-anchor="middle" fill="#fff" font-size="20" font-weight="800">👷</text>
+          <text x="110" y="195" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">PERSONA</text>
+          <text x="110" y="270" text-anchor="middle" fill="#07203f" font-size="12" font-weight="700">Operador / Técnico</text>
+          <text x="110" y="288" text-anchor="middle" fill="#5d6b82" font-size="10">usuário impactado</text>
+          <rect x="210" y="20" width="180" height="90" rx="10" fill="#e8f0ff" stroke="#2563eb" stroke-width="1.5"/>
+          <text x="300" y="48" text-anchor="middle" fill="#07203f" font-size="12" font-weight="800">👀 O QUE VÊ</text>
+          <text x="300" y="72" text-anchor="middle" fill="#5d6b82" font-size="10">Ambiente, colegas,</text>
+          <text x="300" y="88" text-anchor="middle" fill="#5d6b82" font-size="10">indicadores, máquinas</text>
+          <rect x="400" y="20" width="180" height="90" rx="10" fill="#e0f2f7" stroke="#0891b2" stroke-width="1.5"/>
+          <text x="490" y="48" text-anchor="middle" fill="#07203f" font-size="12" font-weight="800">👂 O QUE OUVE</text>
+          <text x="490" y="72" text-anchor="middle" fill="#5d6b82" font-size="10">Chefias, colegas,</text>
+          <text x="490" y="88" text-anchor="middle" fill="#5d6b82" font-size="10">clientes, ruídos</text>
+          <rect x="210" y="130" width="180" height="90" rx="10" fill="#f0e8ff" stroke="#7c3aed" stroke-width="1.5"/>
+          <text x="300" y="158" text-anchor="middle" fill="#07203f" font-size="12" font-weight="800">💭 PENSA E SENTE</text>
+          <text x="300" y="182" text-anchor="middle" fill="#5d6b82" font-size="10">Medos, frustrações,</text>
+          <text x="300" y="198" text-anchor="middle" fill="#5d6b82" font-size="10">motivações íntimas</text>
+          <rect x="400" y="130" width="180" height="90" rx="10" fill="#e6fbf6" stroke="#0d9488" stroke-width="1.5"/>
+          <text x="490" y="158" text-anchor="middle" fill="#07203f" font-size="12" font-weight="800">🗣️ FALA E FAZ</text>
+          <text x="490" y="182" text-anchor="middle" fill="#5d6b82" font-size="10">Comportamentos</text>
+          <text x="490" y="198" text-anchor="middle" fill="#5d6b82" font-size="10">observáveis</text>
+          <rect x="210" y="240" width="180" height="90" rx="10" fill="#ffe9e9" stroke="#dc2626" stroke-width="1.5"/>
+          <text x="300" y="268" text-anchor="middle" fill="#b91c1c" font-size="12" font-weight="800">😖 DORES</text>
+          <text x="300" y="292" text-anchor="middle" fill="#5d6b82" font-size="10">Obstáculos, riscos,</text>
+          <text x="300" y="308" text-anchor="middle" fill="#5d6b82" font-size="10">frustrações, perdas</text>
+          <rect x="400" y="240" width="180" height="90" rx="10" fill="#e7f8ee" stroke="#15a34a" stroke-width="1.5"/>
+          <text x="490" y="268" text-anchor="middle" fill="#0f7a37" font-size="12" font-weight="800">🌟 NECESSIDADES</text>
+          <text x="490" y="292" text-anchor="middle" fill="#5d6b82" font-size="10">Ganhos desejados,</text>
+          <text x="490" y="308" text-anchor="middle" fill="#5d6b82" font-size="10">expectativas</text>
+        </svg>
+        <p class="svg-caption">Estrutura do Mapa de Empatia aplicada ao contexto industrial</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>🛠️ Como preencher (passo a passo)</h4>
+        <ol>
+          <li><strong>Defina a persona:</strong> um operador, técnico ou usuário específico — com nome fictício, cargo e contexto de trabalho.</li>
+          <li><strong>Entreviste ou observe:</strong> pelo menos 15 minutos de conversa aberta. Pergunte "me conta como é seu dia", não "você tem problema com X?".</li>
+          <li><strong>Preencha os 6 quadrantes</strong> com frases literais do usuário sempre que possível (entre aspas).</li>
+          <li><strong>Identifique padrões:</strong> o que aparece repetido entre as falas? Esses são os pontos de maior dor.</li>
+          <li><strong>Priorize:</strong> destaque as 3 dores e as 3 necessidades mais críticas — elas alimentarão a Proposta de Valor.</li>
+        </ol>
+      </div>
+
+      <div class="modal-section">
+        <h4>❓ Perguntas orientadoras por quadrante</h4>
+        <div class="grid-modal">
+          <div class="mini-card"><strong>👀 O que ele VÊ</strong>O que está no ambiente dele? Que ferramentas, telas e colegas ele observa?</div>
+          <div class="mini-card"><strong>👂 O que ele OUVE</strong>O que dizem chefes, colegas e clientes? Que ruídos e alarmes ele percebe?</div>
+          <div class="mini-card"><strong>💭 O que ele PENSA e SENTE</strong>O que o preocupa? Do que ele tem medo? O que o motiva?</div>
+          <div class="mini-card"><strong>🗣️ O que ele FALA e FAZ</strong>Como ele age? Que frases repete? O que faz na prática?</div>
+          <div class="mini-card"><strong>😖 DORES</strong>O que o frustra, atrasa, cansa ou coloca em risco?</div>
+          <div class="mini-card"><strong>🌟 NECESSIDADES</strong>O que tornaria o trabalho dele mais leve, seguro e reconhecido?</div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>⚠️ Erros comuns</h4>
+        <div class="alerta">
+          <strong>1.</strong> Preencher tudo com "achismo" do squad, sem ter conversado com ninguém.<br>
+          <strong>2.</strong> Confundir <em>dores</em> (emocionais) com <em>tarefas</em> (operacionais) — o mapa perde força.<br>
+          <strong>3.</strong> Descrever o que a empresa acha do operador, não o que ele próprio sente.<br>
+          <strong>4.</strong> Não anotar falas literais — sem citação, o mapa vira opinião.
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>✅ Checklist antes de finalizar</h4>
+        <div class="sucesso">
+          ☑ A persona tem nome, cargo e contexto claros<br>
+          ☑ Cada quadrante tem pelo menos 2 itens concretos<br>
+          ☑ Há pelo menos 1 fala literal entre aspas<br>
+          ☑ As 3 dores prioritárias estão destacadas<br>
+          ☑ O squad revisou o mapa e chegou a um consenso
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal-brainstorm" role="dialog" aria-modal="true" aria-labelledby="modal-brainstorm-title" aria-hidden="true">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <h3 id="modal-brainstorm-title">💭 Brainstorming</h3>
+        <p>Gerar muitas ideias antes de julgar qualquer uma delas</p>
+      </div>
+      <button class="modal-close" type="button" aria-label="Fechar modal">×</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <h4>📖 O que é</h4>
+        <p>Brainstorming é uma dinâmica de grupo para gerar o <strong>máximo de ideias</strong> sobre um problema em pouco tempo, <strong>sem julgamento</strong>. O objetivo inicial não é acertar — é explorar. A seleção vem depois, com método.</p>
+        <div class="destaque">
+          💡 <strong>Princípio central:</strong> quantidade gera qualidade. As melhores ideias costumam aparecer depois da décima — quando o óbvio já foi dito e a criatividade precisa se virar.
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>🗺️ Divergir para depois convergir</h4>
+        <svg class="svg-figure" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg" aria-label="Diagrama de funil mostrando divergência e convergência de ideias">
+          <rect width="600" height="260" fill="#f8fbff" rx="14"/>
+          <polygon points="40,130 280,40 280,220" fill="#e0ecff" stroke="#2563eb" stroke-width="2"/>
+          <polygon points="320,40 320,220 560,130" fill="#fff3e0" stroke="#ff7a18" stroke-width="2"/>
+          <line x1="300" y1="20" x2="300" y2="240" stroke="#07203f" stroke-width="2" stroke-dasharray="6 4"/>
+          <text x="160" y="250" text-anchor="middle" fill="#2563eb" font-size="12" font-weight="800">DIVERGIR</text>
+          <text x="440" y="250" text-anchor="middle" fill="#ff7a18" font-size="12" font-weight="800">CONVERGIR</text>
+          <text x="42" y="137" text-anchor="middle" font-size="20">❓</text>
+          <circle cx="120" cy="115" r="5" fill="#2563eb" opacity="0.7"/>
+          <circle cx="160" cy="90" r="5" fill="#2563eb" opacity="0.7"/>
+          <circle cx="200" cy="140" r="5" fill="#2563eb" opacity="0.7"/>
+          <circle cx="170" cy="170" r="5" fill="#2563eb" opacity="0.7"/>
+          <circle cx="230" cy="70" r="5" fill="#2563eb" opacity="0.7"/>
+          <circle cx="240" cy="120" r="5" fill="#2563eb" opacity="0.7"/>
+          <circle cx="220" cy="190" r="5" fill="#2563eb" opacity="0.7"/>
+          <circle cx="260" cy="160" r="5" fill="#2563eb" opacity="0.7"/>
+          <circle cx="130" cy="160" r="5" fill="#2563eb" opacity="0.7"/>
+          <circle cx="180" cy="130" r="5" fill="#2563eb" opacity="0.7"/>
+          <circle cx="360" cy="115" r="4" fill="#ff7a18" opacity="0.35"/>
+          <circle cx="400" cy="90" r="4" fill="#ff7a18" opacity="0.35"/>
+          <circle cx="380" cy="150" r="4" fill="#ff7a18" opacity="0.35"/>
+          <circle cx="540" cy="130" r="12" fill="#ff7a18"/>
+          <text x="540" y="136" text-anchor="middle" fill="#fff" font-size="14" font-weight="900">★</text>
+        </svg>
+        <p class="svg-caption">Primeiro abra o leque (divergir), depois selecione (convergir)</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>🏆 As 4 regras de ouro</h4>
+        <div class="grid-modal">
+          <div class="mini-card"><strong>🚫 Sem críticas</strong>Ninguém julga, nem com piada, nem com "isso não vai funcionar".</div>
+          <div class="mini-card"><strong>🤪 Ideias malucas valem</strong>Ideias extremas abrem caminhos inesperados para soluções viáveis.</div>
+          <div class="mini-card"><strong>➕ Construir sobre</strong>"Sim, e..." em vez de "não, mas...". Combine ideias dos colegas.</div>
+          <div class="mini-card"><strong>🎯 Foco no problema</strong>Toda ideia precisa responder à pergunta provocadora do squad.</div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>🛠️ Como conduzir a sessão (passo a passo)</h4>
+        <ol>
+          <li><strong>Prepare o ambiente:</strong> post-its, quadro branco ou ferramenta digital. Todos veem todas as ideias.</li>
+          <li><strong>Escreva a pergunta provocadora</strong> em local visível — "Como podemos...?" funciona bem.</li>
+          <li><strong>Aqueça com 3 min de escrita individual</strong> (brainwriting): cada um escreve suas ideias em silêncio antes de compartilhar.</li>
+          <li><strong>Compartilhe em rodadas:</strong> cada integrante lê uma ideia por vez, sem comentar.</li>
+          <li><strong>Convide a construir:</strong> "como sua ideia se junta com essa?" rende combinações poderosas.</li>
+          <li><strong>Registre TUDO:</strong> ideias "ruins" podem virar ouro depois — não descarte na hora.</li>
+          <li><strong>Encerre com agrupamento:</strong> junto ao squad, agrupe ideias por tema antes de partir para o HMW.</li>
+        </ol>
+      </div>
+
+      <div class="modal-section">
+        <h4>🧰 Técnicas complementares</h4>
+        <ul>
+          <li><strong>Brainwriting:</strong> cada um escreve em silêncio por 5 min — reduz o efeito "só o líder fala".</li>
+          <li><strong>SCAMPER:</strong> substituir, combinar, adaptar, modificar, dar outro uso, eliminar, reorganizar.</li>
+          <li><strong>Inversão:</strong> em vez de "como resolver X", pergunte "como piorar X?" — depois inverta as respostas.</li>
+          <li><strong>Analogias industriais:</strong> como outro setor (aeronáutica, saúde) resolveria esse mesmo problema?</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h4>⚠️ Erros comuns</h4>
+        <div class="alerta">
+          <strong>1.</strong> Julgar ideias durante a geração — mata a sessão na hora.<br>
+          <strong>2.</strong> Deixar uma só pessoa dominar a fala.<br>
+          <strong>3.</strong> Ir para "qual é a melhor?" antes de ter quantidade suficiente (mínimo 20–30 ideias para um bom filtro).<br>
+          <strong>4.</strong> Não registrar as ideias descartadas — perde-se rastro de raciocínio valioso.
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>✅ Checklist antes de encerrar</h4>
+        <div class="sucesso">
+          ☑ Pelo menos 20 ideias geradas e registradas<br>
+          ☑ Nenhuma foi descartada durante a geração<br>
+          ☑ Todos os integrantes contribuíram<br>
+          ☑ Ideias agrupadas por tema antes da seleção<br>
+          ☑ Pergunta provocadora permaneceu visível todo o tempo
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal-vpc" role="dialog" aria-modal="true" aria-labelledby="modal-vpc-title" aria-hidden="true">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <h3 id="modal-vpc-title">💎 Proposta de Valor</h3>
+        <p>Conectar benefícios da solução às dores reais do usuário</p>
+      </div>
+      <button class="modal-close" type="button" aria-label="Fechar modal">×</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <h4>📖 O que é</h4>
+        <p>A Proposta de Valor é a <strong>promessa central</strong> da sua solução: em uma frase, ela diz <em>quem</em> é ajudado, <em>com qual dor</em>, <em>como</em> a solução resolve, e <em>por que</em> é melhor do que o que existe hoje. É o que conecta o Mapa de Empatia (lado do usuário) com a ideia selecionada (lado da solução).</p>
+        <div class="destaque">
+          💡 <strong>Teste de fogo:</strong> se você retirar a frase "nossa solução faz X" e a dor continuar parecendo atendida por outra coisa, sua proposta está fraca. Cada benefício precisa estar ancorado em uma dor real mapeada.
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>🗺️ Value Proposition Canvas</h4>
+        <svg class="svg-figure" viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" aria-label="Canvas de Proposta de Valor com perfil do usuário à esquerda e proposta à direita">
+          <rect width="600" height="340" fill="#f8fbff" rx="14"/>
+          <circle cx="150" cy="180" r="125" fill="#e8f0ff" stroke="#2563eb" stroke-width="2"/>
+          <text x="150" y="42" text-anchor="middle" fill="#07203f" font-size="12" font-weight="800">👷 PERFIL DO USUÁRIO</text>
+          <circle cx="105" cy="115" r="38" fill="#fff" stroke="#dc2626" stroke-width="2"/>
+          <text x="105" y="113" text-anchor="middle" font-size="13">😖</text>
+          <text x="105" y="130" text-anchor="middle" fill="#b91c1c" font-size="10" font-weight="700">DORES</text>
+          <circle cx="200" cy="115" r="38" fill="#fff" stroke="#15a34a" stroke-width="2"/>
+          <text x="200" y="113" text-anchor="middle" font-size="13">🌟</text>
+          <text x="200" y="130" text-anchor="middle" fill="#0f7a37" font-size="10" font-weight="700">GANHOS</text>
+          <circle cx="152" cy="220" r="42" fill="#fff" stroke="#0b3c8c" stroke-width="2"/>
+          <text x="152" y="216" text-anchor="middle" font-size="14">✅</text>
+          <text x="152" y="233" text-anchor="middle" fill="#0b3c8c" font-size="10" font-weight="700">TAREFAS</text>
+          <line x1="285" y1="180" x2="315" y2="180" stroke="#07203f" stroke-width="3" stroke-dasharray="4 4"/>
+          <polygon points="315,175 330,180 315,185" fill="#07203f"/>
+          <text x="307" y="165" text-anchor="middle" fill="#07203f" font-size="11" font-weight="800">FIT</text>
+          <rect x="345" y="45" width="235" height="255" rx="18" fill="#fff3e0" stroke="#ff7a18" stroke-width="2"/>
+          <text x="462" y="70" text-anchor="middle" fill="#07203f" font-size="12" font-weight="800">🚀 PROPOSTA DE VALOR</text>
+          <rect x="365" y="88" width="195" height="52" rx="8" fill="#fff" stroke="#dc2626" stroke-width="1.5"/>
+          <text x="462" y="110" text-anchor="middle" fill="#b91c1c" font-size="11" font-weight="700">💊 ALIVIANTES DE DOR</text>
+          <text x="462" y="128" text-anchor="middle" fill="#5d6b82" font-size="9">como a solução elimina dores</text>
+          <rect x="365" y="150" width="195" height="52" rx="8" fill="#fff" stroke="#15a34a" stroke-width="1.5"/>
+          <text x="462" y="172" text-anchor="middle" fill="#0f7a37" font-size="11" font-weight="700">✨ CRIADORES DE GANHO</text>
+          <text x="462" y="190" text-anchor="middle" fill="#5d6b82" font-size="9">como gera valor extra</text>
+          <rect x="365" y="212" width="195" height="52" rx="8" fill="#fff" stroke="#0b3c8c" stroke-width="1.5"/>
+          <text x="462" y="234" text-anchor="middle" fill="#0b3c8c" font-size="11" font-weight="700">📦 PRODUTOS E SERVIÇOS</text>
+          <text x="462" y="252" text-anchor="middle" fill="#5d6b82" font-size="9">o que o squad entrega de fato</text>
+        </svg>
+        <p class="svg-caption">Perfil do usuário (esquerda) e proposta (direita) precisam se encaixar — esse encaixe é o "Fit"</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>🛠️ Como construir (passo a passo)</h4>
+        <ol>
+          <li><strong>Comece pela esquerda:</strong> liste as <em>tarefas</em> (o que o usuário precisa fazer), as <em>dores</em> (o que o atrapalha) e os <em>ganhos</em> (o que ele quer alcançar).</li>
+          <li><strong>Traga a ideia selecionada:</strong> qual é o produto, serviço ou processo que o squad decidiu propor?</li>
+          <li><strong>Mapeie os aliviantes de dor:</strong> para cada dor prioritária, o que na solução a elimina ou reduz?</li>
+          <li><strong>Mapeie os criadores de ganho:</strong> o que a solução entrega além do óbvio? Autonomia, reconhecimento, dados, segurança?</li>
+          <li><strong>Teste o "Fit":</strong> cada dor tem um aliviante correspondente? Cada ganho esperado tem um criador? Se não, volte à ideação.</li>
+          <li><strong>Escreva a declaração final:</strong> uma frase, sem jargão, que qualquer pessoa da fábrica entenda.</li>
+        </ol>
+      </div>
+
+      <div class="modal-section">
+        <h4>📢 Template da declaração</h4>
+        <div class="destaque">
+          <strong>Nossa solução</strong> [NOME DA SOLUÇÃO]<br>
+          <strong>ajuda</strong> [USUÁRIO ESPECÍFICO]<br>
+          <strong>que sofre com</strong> [DOR PRINCIPAL MAPEADA]<br>
+          <strong>a</strong> [BENEFÍCIO CONCRETO E MENSURÁVEL]<br>
+          <strong>por meio de</strong> [COMO A SOLUÇÃO FUNCIONA]<br>
+          <strong>diferentemente de</strong> [ALTERNATIVA ATUAL / CONCORRENTE / STATUS QUO].
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>⚠️ Erros comuns</h4>
+        <div class="alerta">
+          <strong>1.</strong> Proposta genérica ("aumentar a eficiência") — sem métrica e sem dor específica.<br>
+          <strong>2.</strong> Benefícios que não estão ancorados em nenhuma dor real mapeada no Mapa de Empatia.<br>
+          <strong>3.</strong> Escrever a proposta pensando no chefe, não no operador.<br>
+          <strong>4.</strong> Usar jargão ("solução end-to-end") em vez de linguagem simples e concreta.
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>✅ Checklist de validação</h4>
+        <div class="sucesso">
+          ☑ Cada dor prioritária tem um aliviante correspondente<br>
+          ☑ Cada ganho esperado tem um criador de ganho<br>
+          ☑ A declaração final cabe em uma frase<br>
+          ☑ A métrica de sucesso é mensurável (%, tempo, R$)<br>
+          ☑ Um operador de fábrica entenderia a proposta sem explicação
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal-bmc" role="dialog" aria-modal="true" aria-labelledby="modal-bmc-title" aria-hidden="true">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <h3 id="modal-bmc-title">📐 Business Model Canvas (Osterwalder)</h3>
+        <p>Uma página que resume como o negócio cria, entrega e captura valor</p>
+      </div>
+      <button class="modal-close" type="button" aria-label="Fechar modal">×</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <h4>📖 O que é</h4>
+        <p>O <strong>Business Model Canvas</strong>, criado por <strong>Alexander Osterwalder</strong> e <strong>Yves Pigneur</strong>, é uma ferramenta visual que descreve um modelo de negócio em <strong>9 blocos interdependentes</strong>. Ele substitui o antigo "plano de negócios" por uma visão ágil, colaborativa e testável — perfeita para projetos de inovação industrial que precisam validar hipóteses rápido.</p>
+        <div class="destaque">
+          💡 <strong>Por que importa na indústria:</strong> prototipar uma solução eletromecânica exige investimento. O Canvas força o squad a explicitar quem paga, quem usa, o que precisa ser feito e quanto custa — antes de gastar tempo e material.
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>🗺️ Estrutura dos 9 blocos</h4>
+        <svg class="svg-figure" viewBox="0 0 620 340" xmlns="http://www.w3.org/2000/svg" aria-label="Diagrama do Business Model Canvas com 9 blocos">
+          <rect width="620" height="340" fill="#f8fbff" rx="14"/>
+          <rect x="20"  y="30"  width="110" height="180" rx="10" fill="#e8f0ff" stroke="#2563eb" stroke-width="1.5"/>
+          <text x="75" y="55" text-anchor="middle" fill="#07203f" font-size="11" font-weight="800">PARCEIROS</text>
+          <text x="75" y="70" text-anchor="middle" fill="#5d6b82" font-size="9">KP</text>
+
+          <rect x="140" y="30"  width="110" height="85" rx="10" fill="#e6fbf6" stroke="#0d9488" stroke-width="1.5"/>
+          <text x="195" y="55" text-anchor="middle" fill="#07203f" font-size="11" font-weight="800">ATIVIDADES</text>
+          <text x="195" y="70" text-anchor="middle" fill="#5d6b82" font-size="9">KA</text>
+
+          <rect x="140" y="125" width="110" height="85" rx="10" fill="#e0f2f7" stroke="#0891b2" stroke-width="1.5"/>
+          <text x="195" y="150" text-anchor="middle" fill="#07203f" font-size="11" font-weight="800">RECURSOS</text>
+          <text x="195" y="165" text-anchor="middle" fill="#5d6b82" font-size="9">KR</text>
+
+          <rect x="260" y="30"  width="110" height="180" rx="10" fill="#fff3e0" stroke="#ff7a18" stroke-width="2"/>
+          <text x="315" y="55" text-anchor="middle" fill="#07203f" font-size="11" font-weight="800">PROPOSTA</text>
+          <text x="315" y="70" text-anchor="middle" fill="#07203f" font-size="11" font-weight="800">DE VALOR</text>
+          <text x="315" y="85" text-anchor="middle" fill="#5d6b82" font-size="9">VP</text>
+
+          <rect x="380" y="30"  width="110" height="85" rx="10" fill="#f0e8ff" stroke="#7c3aed" stroke-width="1.5"/>
+          <text x="435" y="55" text-anchor="middle" fill="#07203f" font-size="11" font-weight="800">RELACION.</text>
+          <text x="435" y="70" text-anchor="middle" fill="#5d6b82" font-size="9">CR</text>
+
+          <rect x="380" y="125" width="110" height="85" rx="10" fill="#e8f0ff" stroke="#2563eb" stroke-width="1.5"/>
+          <text x="435" y="150" text-anchor="middle" fill="#07203f" font-size="11" font-weight="800">CANAIS</text>
+          <text x="435" y="165" text-anchor="middle" fill="#5d6b82" font-size="9">CH</text>
+
+          <rect x="500" y="30"  width="100" height="180" rx="10" fill="#e7f8ee" stroke="#15a34a" stroke-width="1.5"/>
+          <text x="550" y="55" text-anchor="middle" fill="#07203f" font-size="11" font-weight="800">SEGMENTO</text>
+          <text x="550" y="70" text-anchor="middle" fill="#07203f" font-size="11" font-weight="800">DE CLIENTES</text>
+          <text x="550" y="85" text-anchor="middle" fill="#5d6b82" font-size="9">CS</text>
+
+          <rect x="20"  y="230" width="290" height="90" rx="10" fill="#fff5f5" stroke="#dc2626" stroke-width="2"/>
+          <text x="165" y="258" text-anchor="middle" fill="#b91c1c" font-size="11" font-weight="800">ESTRUTURA DE CUSTOS</text>
+          <text x="165" y="273" text-anchor="middle" fill="#5d6b82" font-size="9">C$</text>
+
+          <rect x="320" y="230" width="280" height="90" rx="10" fill="#f2fdf6" stroke="#15a34a" stroke-width="1.5"/>
+          <text x="460" y="258" text-anchor="middle" fill="#0f7a37" font-size="11" font-weight="800">FONTES DE RECEITA</text>
+          <text x="460" y="273" text-anchor="middle" fill="#5d6b82" font-size="9">R$</text>
+        </svg>
+        <p class="svg-caption">Os 9 blocos do Business Model Canvas — os destacados são os prioritários nesta etapa</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>🛠️ Como preencher (ordem sugerida)</h4>
+        <ol>
+          <li><strong>Segmento de Clientes (CS):</strong> para quem criamos valor? Na indústria: empresa contratante, operador, supervisor, cliente final.</li>
+          <li><strong>Proposta de Valor (VP):</strong> o que resolvemos para eles? Traga a declaração da Etapa 2.</li>
+          <li><strong>Canais (CH):</strong> como a solução chega ao cliente (instalação in-loco, integrador, kit).</li>
+          <li><strong>Relacionamento (CR):</strong> treinamento, suporte, feedback contínuo.</li>
+          <li><strong>Fontes de Receita (R$):</strong> economia gerada, venda do kit, contrato de manutenção.</li>
+          <li><strong>Recursos-Chave (KR):</strong> o que é indispensável para operar.</li>
+          <li><strong>Atividades-Chave (KA):</strong> o que precisa ser feito (P&amp;D, prototipagem, testes, instalação).</li>
+          <li><strong>Parceiros-Chave (KP):</strong> quem ajuda (SENAI, fornecedores, universidades).</li>
+          <li><strong>Estrutura de Custos (C$):</strong> somatório de tudo — detalhado no bloco de viabilidade.</li>
+        </ol>
+      </div>
+
+      <div class="modal-section">
+        <h4>⚠️ Erros comuns</h4>
+        <div class="alerta">
+          <strong>1.</strong> Preencher o Canvas como formulário, sem discutir as interdependências.<br>
+          <strong>2.</strong> Confundir "cliente" (empresa que paga) com "usuário" (operador que usa).<br>
+          <strong>3.</strong> Deixar a Estrutura de Custos vaga ("será definido depois").<br>
+          <strong>4.</strong> Esquecer as Atividades-Chave de P&amp;D e prototipagem.
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>✅ Checklist</h4>
+        <div class="sucesso">
+          ☑ Os 9 blocos estão preenchidos com pelo menos 2 itens cada<br>
+          ☑ Proposta de Valor dialoga diretamente com o Segmento de Clientes<br>
+          ☑ Atividades-Chave incluem prototipagem e testes<br>
+          ☑ Estrutura de Custos tem valores estimados<br>
+          ☑ Fontes de Receita incluem economia gerada no chão de fábrica
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal-interdep" role="dialog" aria-modal="true" aria-labelledby="modal-interdep-title" aria-hidden="true">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <h3 id="modal-interdep-title">🔗 Interdependência entre os 4 blocos-chave</h3>
+        <p>Proposta de Valor ⇄ Segmento de Clientes ⇄ Atividades-Chave ⇄ Estrutura de Custos</p>
+      </div>
+      <button class="modal-close" type="button" aria-label="Fechar modal">×</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <h4>📖 Por que isso importa</h4>
+        <p>No BMC, <strong>nenhum bloco vive isolado</strong>. Uma decisão tomada em um bloco reverbera imediatamente nos outros. Esse é o coração do pensamento sistêmico do Osterwalder — e o motivo pelo qual o Canvas é uma ferramenta de <em>decisão</em>, não só de descrição.</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>🔁 Exemplo aplicado ao projeto eletromecânico</h4>
+        <div class="destaque">
+          <strong>Cenário:</strong> o squad decide que o Segmento de Clientes é <em>apenas grandes indústrias metalmecânicas</em>.<br><br>
+          <strong>Impacto em cascata:</strong>
+          <ul>
+            <li><strong>Atividades-Chave</strong> passam a exigir certificações, homologações e SLA — mais custo e mais tempo.</li>
+            <li><strong>Proposta de Valor</strong> precisa falar em escala, disponibilidade e conformidade com normas industriais.</li>
+            <li><strong>Estrutura de Custos</strong> sobe com certificações, equipe de campo e suporte 24/7.</li>
+          </ul>
+          Se o squad muda o segmento para <em>pequenas oficinas</em>, toda a cadeia muda: menos exigência, proposta mais simples, custos menores.
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>🎯 O teste do "Fit"</h4>
+        <p>Faça a pergunta de cada bloco para o bloco vizinho:</p>
+        <div class="grid-modal">
+          <div class="mini-card"><strong>VP → CS</strong>A proposta resolve uma dor real do segmento escolhido?</div>
+          <div class="mini-card"><strong>CS → KA</strong>As atividades-chave dão conta do que esse segmento exige?</div>
+          <div class="mini-card"><strong>KA → C$</strong>As atividades cabem na estrutura de custos estimada?</div>
+          <div class="mini-card"><strong>C$ → VP</strong>É possível entregar a proposta com esse custo (e ainda gerar valor)?</div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>✅ Sinais de que o Canvas está coerente</h4>
+        <div class="sucesso">
+          ☑ A Proposta de Valor menciona explicitamente o segmento escolhido<br>
+          ☑ As Atividades-Chave cobrem o que a proposta promete<br>
+          ☑ A Estrutura de Custos reflete o esforço das Atividades-Chave<br>
+          ☑ Nenhum bloco "sobra" ou "descola" dos demais
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal-viab" role="dialog" aria-modal="true" aria-labelledby="modal-viab-title" aria-hidden="true">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <h3 id="modal-viab-title">💰 Viabilidade Econômica</h3>
+        <p>Custo de produção × economia gerada no chão de fábrica</p>
+      </div>
+      <button class="modal-close" type="button" aria-label="Fechar modal">×</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <h4>📖 O que analisar</h4>
+        <p>Uma solução industrial só se sustenta se <strong>a economia gerada superar o custo total de produção e operação</strong> em um prazo aceitável pela gestão. Isso se chama <strong>viabilidade econômica</strong> — e é o que separa um bom protótipo de um negócio real.</p>
+        <div class="destaque">
+          💡 <strong>Pergunta central:</strong> em quantos meses a economia mensal paga o investimento inicial? Esse número é o <strong>payback</strong>.
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>📐 Fórmulas essenciais</h4>
+        <div class="grid-modal">
+          <div class="mini-card"><strong>Payback (meses)</strong>Custo total ÷ Economia mensal</div>
+          <div class="mini-card"><strong>ROI (%)</strong>(Ganho − Custo) ÷ Custo × 100</div>
+          <div class="mini-card"><strong>Retorno 1º ano</strong>(Economia mensal × 12) − Custo</div>
+          <div class="mini-card"><strong>Economia anual</strong>Economia mensal × 12</div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>🛠️ Passo a passo do squad</h4>
+        <ol>
+          <li><strong>Liste TODOS os custos</strong> de produção do protótipo + implantação (materiais, mão de obra, frete, licenças, treinamento).</li>
+          <li><strong>Some o custo total</strong> (investimento inicial).</li>
+          <li><strong>Liste a economia gerada</strong> pela solução no chão de fábrica (paradas evitadas, refugo reduzido, retrabalho, horas extras, segurança).</li>
+          <li><strong>Converta cada economia em R$/mês.</strong></li>
+          <li><strong>Calcule o payback.</strong> Se for maior que 24 meses, o squad precisa justificar muito bem.</li>
+          <li><strong>Calcule ROI e retorno no 1º ano</strong> para mostrar o impacto.</li>
+          <li><strong>Escreva a conclusão</strong> — viável ou não? Com qual ressalva?</li>
+        </ol>
+      </div>
+
+      <div class="modal-section">
+        <h4>⚠️ Erros comuns</h4>
+        <div class="alerta">
+          <strong>1.</strong> Esquecer custos indiretos (frete, treinamento, manutenção anual).<br>
+          <strong>2.</strong> Superestimar a economia sem base em dados reais da planta.<br>
+          <strong>3.</strong> Ignorar o custo da prototipagem (que costuma ser alto na primeira unidade).<br>
+          <strong>4.</strong> Não considerar resistência e curva de adoção dos operadores.
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>✅ Checklist</h4>
+        <div class="sucesso">
+          ☑ Custos e economias foram listados item a item<br>
+          ☑ Payback foi calculado e interpretado<br>
+          ☑ ROI foi calculado<br>
+          ☑ A conclusão do squad é clara (viável / não viável / viável com ressalvas)<br>
+          ☑ As premissas usadas estão explícitas
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   CONFIG
+========================================================= */
+const STORAGE_KEY = 'jornada-inovacao-squad-v1';
+let saveTimer = null;
+
+/* =========================================================
+   NAVEGAÇÃO ENTRE ABAS
+========================================================= */
+const tabButtons = () => [...document.querySelectorAll('.tab-btn')];
+
+function activateTab(id, focusTab = false){
+  tabButtons().forEach(btn=>{
+    const isActive = btn.dataset.tab === id;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    btn.setAttribute('tabindex', isActive ? '0' : '-1');
+    if(isActive && focusTab) btn.focus();
+  });
+  document.querySelectorAll('.panel').forEach(p=>{
+    p.classList.toggle('active', p.id === id);
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function handleTabKeydown(e){
+  const tabs = tabButtons();
+  const current = tabs.indexOf(e.currentTarget);
+  let next = null;
+  switch(e.key){
+    case 'ArrowRight':
+    case 'ArrowDown': next = (current + 1) % tabs.length; break;
+    case 'ArrowLeft':
+    case 'ArrowUp':   next = (current - 1 + tabs.length) % tabs.length; break;
+    case 'Home':      next = 0; break;
+    case 'End':       next = tabs.length - 1; break;
+    default: return;
+  }
+  e.preventDefault();
+  activateTab(tabs[next].dataset.tab, true);
+}
+
+/* =========================================================
+   AUTO-GROW TEXTAREA
+========================================================= */
+function autoGrow(el){
+  el.style.height = 'auto';
+  el.style.height = (el.scrollHeight + 2) + 'px';
+}
+
+/* =========================================================
+   BADGE DE CLASSIFICAÇÃO
+========================================================= */
+function classificar(v, i){
+  if(v === 'Selecione' || i === 'Selecione') return {txt:'—', cls:''};
+  const map = {
+    'Alta|Alto':    ['⭐ Quick Win — priorizar', 'ok'],
+    'Alta|Médio':   ['✅ Ganho rápido', 'ok'],
+    'Alta|Baixo':   ['🔹 Melhoria incremental', 'low'],
+    'Média|Alto':   ['🎯 Projeto estratégico', 'hot'],
+    'Média|Médio':  ['⚖️ Avaliar com cautela', 'mid'],
+    'Média|Baixo':  ['🔸 Baixa prioridade', 'low'],
+    'Baixa|Alto':   ['🚀 Aposta de longo prazo (P&D)', 'hot'],
+    'Baixa|Médio':  ['🧪 Testar em pequena escala', 'mid'],
+    'Baixa|Baixo':  ['🗑️ Descartar', 'low']
+  };
+  const r = map[v + '|' + i];
+  return r ? {txt:r[0], cls:r[1]} : {txt:'—', cls:''};
+}
+
+function updateBadge(item){
+  const badge = item.querySelector('.badge');
+  if(!badge) return;
+  const v = item.querySelector('.viab').value;
+  const i = item.querySelector('.imp').value;
+  const res = classificar(v, i);
+  badge.textContent = res.txt;
+  badge.className = 'badge ' + res.cls;
+}
+
+/* =========================================================
+   ITENS DINÂMICOS
+========================================================= */
+function createItem(listEl, data){
+  const isHmw = listEl.dataset.list === 'hmw';
+  const item = document.createElement('div');
+  item.className = 'item' + (isHmw ? ' item-hmw' : '');
+
+  const ta = document.createElement('textarea');
+  ta.className = 'item-text';
+  ta.rows = 3;
+  ta.placeholder = listEl.dataset.placeholder || 'Escreva aqui...';
+  ta.value = isHmw ? ((data && data.t) || '') : (data || '');
+  item.appendChild(ta);
+
+  if(isHmw){
+    const v = document.createElement('select');
+    v.className = 'viab';
+    v.setAttribute('aria-label', 'Viabilidade');
+    ['Selecione','Alta','Média','Baixa'].forEach(o=>v.append(new Option(o,o)));
+    v.value = (data && data.v) || 'Selecione';
+
+    const i = document.createElement('select');
+    i.className = 'imp';
+    i.setAttribute('aria-label', 'Impacto');
+    ['Selecione','Alto','Médio','Baixo'].forEach(o=>i.append(new Option(o,o)));
+    i.value = (data && data.i) || 'Selecione';
+
+    const badge = document.createElement('span');
+    badge.className = 'badge';
+    badge.setAttribute('aria-live', 'polite');
+    badge.textContent = '—';
+
+    item.append(v, i, badge);
+  }
+
+  const del = document.createElement('button');
+  del.type = 'button';
+  del.className = 'btn-del';
+  del.title = 'Remover';
+  del.setAttribute('aria-label', 'Remover item');
+  del.textContent = '×';
+  item.appendChild(del);
+
+  ta.addEventListener('input', ()=>{ autoGrow(ta); scheduleSave(); });
+  del.addEventListener('click', ()=>{ item.remove(); scheduleSave(); });
+
+  if(isHmw){
+    item.querySelectorAll('select').forEach(s=>{
+      s.addEventListener('change', ()=>{ updateBadge(item); scheduleSave(); });
+    });
+    updateBadge(item);
+  } else {
+    ta.addEventListener('keydown', e=>{
+      if(e.key === 'Enter' && !e.shiftKey){
+        e.preventDefault();
+        const novo = createItem(listEl, '');
+        item.parentNode.insertBefore(novo, item.nextSibling);
+        novo.querySelector('.item-text').focus();
+        scheduleSave();
+      }
+    });
+  }
+
+  requestAnimationFrame(()=>autoGrow(ta));
+  return item;
+}
+
+/* =========================================================
+   COLETA / RESTAURAÇÃO
+========================================================= */
+function collect(){
+  const state = { fields:{}, lists:{} };
+  document.querySelectorAll('[data-key]').forEach(el=>{
+    state.fields[el.dataset.key] = el.value;
+  });
+  document.querySelectorAll('[data-list]').forEach(list=>{
+    const name = list.dataset.list;
+    const items = [...list.querySelectorAll('.item')];
+    if(name === 'hmw'){
+      state.lists[name] = items.map(it=>({
+        t: it.querySelector('.item-text').value,
+        v: it.querySelector('.viab').value,
+        i: it.querySelector('.imp').value
+      }));
+    } else {
+      state.lists[name] = items.map(it=>it.querySelector('.item-text').value);
+    }
+  });
+  return state;
+}
+
+function restore(state){
+  if(!state) return;
+  if(state.fields){
+    document.querySelectorAll('[data-key]').forEach(el=>{
+      if(state.fields[el.dataset.key] !== undefined){
+        el.value = state.fields[el.dataset.key];
+      }
+    });
+  }
+  document.querySelectorAll('[data-list]').forEach(list=>{
+    const name = list.dataset.list;
+    const saved = (state.lists && state.lists[name]) || [];
+    list.innerHTML = '';
+    if(saved.length === 0){
+      list.appendChild(createItem(list, name === 'hmw' ? null : ''));
+    } else {
+      saved.forEach(d=>list.appendChild(createItem(list, d)));
+    }
+  });
+}
+
+/* =========================================================
+   SALVAMENTO
+========================================================= */
+function scheduleSave(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveNow, 500);
+}
+
+function saveNow(){
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(collect()));
+    const s = document.getElementById('save-status');
+    s.textContent = 'Salvo ✓';
+    s.style.color = '';
+    s.classList.add('show');
+    clearTimeout(s._t);
+    s._t = setTimeout(()=>s.classList.remove('show'), 1600);
+  }catch(e){
+    console.warn('Não foi possível salvar.', e);
+    const s = document.getElementById('save-status');
+    s.textContent = '⚠️ Falha ao salvar';
+    s.style.color = 'var(--vermelho)';
+    s.classList.add('show');
+  }
+}
+
+function loadSaved(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  }catch(e){ return null; }
+}
+
+/* =========================================================
+   SINC DO PRINT HEADER
+========================================================= */
+function syncPrintHeader(){
+  const nome = document.querySelector('[data-key="squad_nome"]')?.value.trim() || '—';
+  const proj = document.querySelector('[data-key="squad_projeto"]')?.value.trim() || '—';
+  document.querySelectorAll('[data-print="squad_nome"]').forEach(el=>el.textContent = nome);
+  document.querySelectorAll('[data-print="squad_projeto"]').forEach(el=>el.textContent = proj);
+}
+
+/* =========================================================
+   LINK EXTERNO
+========================================================= */
+function abrirLinkDemanda(){
+  const input = document.querySelector('[data-key="desafio_link"]');
+  if(!input) return;
+  let url = input.value.trim();
+  if(!url){
+    alert('Cole primeiro o link da demanda na plataforma SAGA antes de abrir.');
+    input.focus();
+    return;
+  }
+  if(!/^https?:\/\//i.test(url)){
+    url = 'https://' + url;
+    input.value = url;
+  }
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+/* =========================================================
+   IMPRESSÃO / PDF
+========================================================= */
+function prepararImpressao(){
+  document.querySelectorAll('textarea').forEach(autoGrow);
+  syncPrintHeader();
+}
+
+function limparClassesImpressao(){
+  document.body.classList.remove('printing-aba1','printing-aba2','printing-aba3');
+}
+
+function printAll(){
+  console.log('[printAll] Impressão completa');
+  prepararImpressao();
+  limparClassesImpressao();
+
+  const panels = document.querySelectorAll('.panel');
+  panels.forEach(p => p.style.setProperty('display', 'block', 'important'));
+
+  const cleanup = () => {
+    limparClassesImpressao();
+    panels.forEach(p => p.style.removeProperty('display'));
+    window.removeEventListener('afterprint', cleanup);
+  };
+  window.addEventListener('afterprint', cleanup);
+  setTimeout(cleanup, 5000);
+
+  setTimeout(()=>{ window.print(); }, 200);
+}
+
+function printTab(tabId){
+  console.log('[printTab] Impressão da etapa:', tabId);
+  prepararImpressao();
+  limparClassesImpressao();
+  document.body.classList.add('printing-' + tabId);
+
+  const panels = document.querySelectorAll('.panel');
+  panels.forEach(p => {
+    if(p.id === tabId){
+      p.style.setProperty('display', 'block', 'important');
+    } else {
+      p.style.setProperty('display', 'none', 'important');
+    }
+  });
+
+  const cleanup = () => {
+    limparClassesImpressao();
+    panels.forEach(p => p.style.removeProperty('display'));
+    window.removeEventListener('afterprint', cleanup);
+  };
+  window.addEventListener('afterprint', cleanup);
+  setTimeout(cleanup, 5000);
+
+  setTimeout(()=>{ window.print(); }, 200);
+}
+
+/* =========================================================
+   MODAIS
+========================================================= */
+let lastFocusedElement = null;
+
+function openModal(id){
+  const modal = document.getElementById(id);
+  if(!modal) return;
+  lastFocusedElement = document.activeElement;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  const closeBtn = modal.querySelector('.modal-close');
+  if(closeBtn) setTimeout(()=>closeBtn.focus(), 60);
+}
+
+function closeModal(modal){
+  if(!modal) return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  if(lastFocusedElement && typeof lastFocusedElement.focus === 'function'){
+    lastFocusedElement.focus();
+  }
+}
+
+function trapFocus(modal, e){
+  if(e.key !== 'Tab') return;
+  const focusables = modal.querySelectorAll(
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  );
+  const list = [...focusables].filter(el => !el.disabled && el.offsetParent !== null);
+  if(list.length === 0) return;
+  const first = list[0];
+  const last = list[list.length - 1];
+  if(e.shiftKey && document.activeElement === first){
+    e.preventDefault(); last.focus();
+  } else if(!e.shiftKey && document.activeElement === last){
+    e.preventDefault(); first.focus();
+  }
+}
+
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
+function initApp(){
+  tabButtons().forEach(btn=>{
+    btn.addEventListener('click', ()=>activateTab(btn.dataset.tab));
+    btn.addEventListener('keydown', handleTabKeydown);
+  });
+
+  document.querySelectorAll('[data-add]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const list = document.querySelector('[data-list="' + btn.dataset.add + '"]');
+      if(!list) return;
+      const novo = createItem(list, list.dataset.list === 'hmw' ? null : '');
+      list.appendChild(novo);
+      novo.querySelector('.item-text').focus();
+      scheduleSave();
+    });
+  });
+
+  restore(loadSaved());
+
+  document.querySelectorAll('textarea').forEach(autoGrow);
+
+  syncPrintHeader();
+
+  document.querySelectorAll('[data-key]').forEach(el=>{
+    el.addEventListener('input', ()=>{
+      scheduleSave();
+      if(el.dataset.key === 'squad_nome' || el.dataset.key === 'squad_projeto'){
+        syncPrintHeader();
+      }
+    });
+    el.addEventListener('change', scheduleSave);
+  });
+
+  document.getElementById('btn-save').addEventListener('click', saveNow);
+  document.getElementById('btn-print-all').addEventListener('click', printAll);
+
+  document.querySelectorAll('[data-print-tab]').forEach(btn=>{
+    btn.addEventListener('click', ()=>printTab(btn.dataset.printTab));
+  });
+
+  document.getElementById('btn-clear').addEventListener('click', ()=>{
+    if(!confirm('Tem certeza que deseja apagar TODOS os dados preenchidos? Esta ação não pode ser desfeita.')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  });
+
+  const btnLink = document.getElementById('btn-open-link');
+  if(btnLink) btnLink.addEventListener('click', abrirLinkDemanda);
+
+  document.querySelectorAll('[data-modal]').forEach(trigger=>{
+    trigger.addEventListener('click', ()=>openModal(trigger.dataset.modal));
+    trigger.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        openModal(trigger.dataset.modal);
+      }
+    });
+  });
+
+  document.querySelectorAll('.modal').forEach(modal=>{
+    modal.addEventListener('click', (e)=>{
+      if(e.target === modal) closeModal(modal);
+    });
+    const closeBtn = modal.querySelector('.modal-close');
+    if(closeBtn) closeBtn.addEventListener('click', ()=>closeModal(modal));
+    modal.addEventListener('keydown', (e)=>trapFocus(modal, e));
+  });
+
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape'){
+      const open = document.querySelector('.modal.open');
+      if(open) closeModal(open);
+    }
+  });
+
+  window.addEventListener('beforeunload', saveNow);
+}
+
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
+</script>
+</body>
+</html>
