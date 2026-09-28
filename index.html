@@ -643,7 +643,7 @@ footer{text-align:center;padding:26px 16px 130px;color:var(--muted);font-size:.8
 .viab-col.economia{border-top:5px solid var(--verde);background:linear-gradient(180deg,#f2fdf6,#fff 30%);}
 .viab-col h3{margin:0 0 12px;font-size:.96rem;color:var(--azul-esc);}
 
-/* ============ TIMELINE (CRONOGRAMA) ============ */
+/* ============ TIMELINE ============ */
 .timeline{display:flex;flex-direction:column;gap:10px;}
 .timeline .slot{
   display:grid;
@@ -663,7 +663,7 @@ footer{text-align:center;padding:26px 16px 130px;color:var(--muted);font-size:.8
 .timeline .slot p{margin:0;font-size:.84rem;color:var(--muted);line-height:1.5;}
 
 /* ============================================================
-   HEADER DE IMPRESSÃO (só aparece no PDF)
+   HEADER DE IMPRESSÃO
 ============================================================ */
 .print-header{display:none;}
 
@@ -1069,7 +1069,6 @@ footer{text-align:center;padding:26px 16px 130px;color:var(--muted);font-size:.8
 </head>
 <body>
 
-<!-- ================= PRINT HEADER (só no PDF) ================= -->
 <div class="print-header">
   <h1>Jornada de Inovação Industrial — Entrega do Squad</h1>
   <p class="print-meta">
@@ -1079,7 +1078,6 @@ footer{text-align:center;padding:26px 16px 130px;color:var(--muted);font-size:.8
   </p>
 </div>
 
-<!-- ================= HERO ================= -->
 <header class="hero">
   <div class="hero-inner">
     <span class="tag">Design Thinking • Indústria • Squad de Inovação</span>
@@ -1097,7 +1095,6 @@ footer{text-align:center;padding:26px 16px 130px;color:var(--muted);font-size:.8
   </div>
 </header>
 
-<!-- ================= ABAS ================= -->
 <nav class="tabs" role="tablist" aria-label="Etapas da jornada de inovação">
   <button id="tab-aba1" class="tab-btn active" data-tab="aba1" role="tab"
           aria-selected="true" aria-controls="aba1" tabindex="0">
@@ -1890,7 +1887,6 @@ footer{text-align:center;padding:26px 16px 130px;color:var(--muted);font-size:.8
 
 </main>
 
-<!-- ================= TOOLBAR ================= -->
 <div class="toolbar" role="toolbar" aria-label="Ações do formulário">
   <button class="btn btn-primary" id="btn-print-all" type="button">🖨️ PDF completo</button>
   <button class="btn btn-ghost" id="btn-save" type="button">💾 Salvar</button>
@@ -2716,6 +2712,73 @@ function limparClassesImpressao(){
   document.body.classList.remove('printing-aba1','printing-aba2','printing-aba3');
 }
 
+/* Detecta se está dentro de iframe/visualizador (sandbox) */
+function emIframeSandboxed(){
+  try {
+    return window.self !== window.top;
+  } catch(e){
+    return true;
+  }
+}
+
+/* FALLBACK SANDBOX: abre nova aba e REMOVE fisicamente os painéis indesejados */
+function imprimirEmNovaAba(onlyTabId){
+  const w = window.open('', '_blank');
+  if(!w){
+    alert(
+      '⚠️ O navegador bloqueou a abertura da nova aba.\n\n' +
+      'COMO RESOLVER:\n' +
+      '1) Permita pop-ups para este site, ou\n' +
+      '2) Baixe o arquivo .html e abra direto no navegador (duplo clique).'
+    );
+    return;
+  }
+
+  const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+
+  let jaImprimiu = false;
+  const doPrint = () => {
+    if(jaImprimiu) return;
+    jaImprimiu = true;
+
+    try {
+      if(onlyTabId){
+        // Remove fisicamente os outros painéis
+        w.document.querySelectorAll('.panel').forEach(p => {
+          if(p.id !== onlyTabId){
+            p.parentNode.removeChild(p);
+          } else {
+            p.style.setProperty('display', 'block', 'important');
+          }
+        });
+      } else {
+        w.document.querySelectorAll('.panel').forEach(p => {
+          p.style.removeProperty('display');
+        });
+      }
+
+      w.document.body.classList.remove('printing-aba1','printing-aba2','printing-aba3');
+
+      w.focus();
+      w.print();
+    } catch(e){
+      console.error('[fallback] Erro ao imprimir:', e);
+    }
+  };
+
+  if(w.document.readyState === 'complete'){
+    setTimeout(doPrint, 500);
+  } else {
+    w.addEventListener('load', () => setTimeout(doPrint, 500));
+    setTimeout(doPrint, 1500);
+  }
+}
+
+/* PDF completo (todas as abas) */
 function printAll(){
   console.log('[printAll] Impressão completa');
   prepararImpressao();
@@ -2724,6 +2787,16 @@ function printAll(){
   const panels = document.querySelectorAll('.panel');
   panels.forEach(p => p.style.setProperty('display', 'block', 'important'));
 
+  if(emIframeSandboxed()){
+    imprimirEmNovaAba(null);
+    setTimeout(() => {
+      panels.forEach(p => p.style.removeProperty('display'));
+    }, 1200);
+    return;
+  }
+
+  setTimeout(() => window.print(), 200);
+
   const cleanup = () => {
     limparClassesImpressao();
     panels.forEach(p => p.style.removeProperty('display'));
@@ -2731,24 +2804,30 @@ function printAll(){
   };
   window.addEventListener('afterprint', cleanup);
   setTimeout(cleanup, 5000);
-
-  setTimeout(()=>{ window.print(); }, 200);
 }
 
+/* PDF de uma aba específica */
 function printTab(tabId){
   console.log('[printTab] Impressão da etapa:', tabId);
   prepararImpressao();
   limparClassesImpressao();
-  document.body.classList.add('printing-' + tabId);
 
   const panels = document.querySelectorAll('.panel');
+  document.body.classList.add('printing-' + tabId);
   panels.forEach(p => {
-    if(p.id === tabId){
-      p.style.setProperty('display', 'block', 'important');
-    } else {
-      p.style.setProperty('display', 'none', 'important');
-    }
+    p.style.setProperty('display', p.id === tabId ? 'block' : 'none', 'important');
   });
+
+  if(emIframeSandboxed()){
+    imprimirEmNovaAba(tabId);
+    setTimeout(() => {
+      panels.forEach(p => p.style.removeProperty('display'));
+      limparClassesImpressao();
+    }, 1500);
+    return;
+  }
+
+  setTimeout(() => window.print(), 200);
 
   const cleanup = () => {
     limparClassesImpressao();
@@ -2757,8 +2836,6 @@ function printTab(tabId){
   };
   window.addEventListener('afterprint', cleanup);
   setTimeout(cleanup, 5000);
-
-  setTimeout(()=>{ window.print(); }, 200);
 }
 
 /* =========================================================
